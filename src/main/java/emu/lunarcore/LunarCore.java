@@ -9,12 +9,12 @@ import org.jline.reader.UserInterruptException;
 import org.jline.reader.impl.LineReaderImpl;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import ch.qos.logback.classic.Logger;
 import emu.lunarcore.command.CommandManager;
 import emu.lunarcore.data.ResourceLoader;
 import emu.lunarcore.database.DatabaseManager;

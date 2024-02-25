@@ -2,6 +2,8 @@ package emu.lunarcore.data.config;
 
 import java.util.List;
 
+import com.google.gson.JsonObject;
+
 import emu.lunarcore.game.enums.PropState;
 import emu.lunarcore.game.scene.triggers.PropTrigger;
 import emu.lunarcore.util.Position;
@@ -22,12 +24,14 @@ public class PropInfo extends ObjectInfo {
     private int EventID;
     private int CocoonID;
     private int FarmElementID;
-    private PropValueSource ValueSource;
+    private boolean IsClientOnly;
     
+    @Setter private PropValueSource ValueSource;
     @Setter private String InitLevelGraph;
     @Setter private PropState State = PropState.Closed;
     
     @Setter private transient PropTrigger trigger;
+    @Setter private transient boolean isCommonConsole;
     
     @Override
     public Position getRot() {
@@ -40,10 +44,14 @@ public class PropInfo extends ObjectInfo {
     public String getSharedValueByKey(String key) {
         if (this.getValueSource() == null) return null;
 
-        var value = getValueSource().getValues().stream().filter(v -> key.equals(v.Key)).findFirst().orElse(null);
+        var sharedValue = getValueSource().getValues()
+                .stream()
+                .filter(v -> v.has("Key") && v.get("Key").getAsString().equals(key))
+                .findFirst()
+                .orElse(null);
         
-        if (value != null) {
-            return value.getValue();
+        if (sharedValue != null && sharedValue.has("Value")) {
+            return sharedValue.get("Value").getAsString();
         }
         
         return null;
@@ -51,12 +59,6 @@ public class PropInfo extends ObjectInfo {
     
     @Getter
     public static class PropValueSource {
-        private List<PropSharedValue> Values;
-    }
-    
-    @Getter
-    public static class PropSharedValue {
-        private String Key;
-        private String Value;
+        private List<JsonObject> Values;
     }
 }

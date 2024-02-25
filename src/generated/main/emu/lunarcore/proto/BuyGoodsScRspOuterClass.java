@@ -19,19 +19,19 @@ public final class BuyGoodsScRspOuterClass {
     private static final long serialVersionUID = 0L;
 
     /**
-     * <code>optional uint32 goods_id = 1;</code>
-     */
-    private int goodsId;
-
-    /**
      * <code>optional uint32 retcode = 3;</code>
      */
     private int retcode;
 
     /**
-     * <code>optional uint32 goods_buy_times = 11;</code>
+     * <code>optional uint32 goods_buy_times = 8;</code>
      */
     private int goodsBuyTimes;
+
+    /**
+     * <code>optional uint32 goods_id = 14;</code>
+     */
+    private int goodsId;
 
     /**
      * <code>optional uint32 shop_id = 15;</code>
@@ -39,7 +39,7 @@ public final class BuyGoodsScRspOuterClass {
     private int shopId;
 
     /**
-     * <code>optional .ItemList return_item_list = 5;</code>
+     * <code>optional .ItemList return_item_list = 4;</code>
      */
     private final ItemListOuterClass.ItemList returnItemList = ItemListOuterClass.ItemList.newInstance();
 
@@ -54,48 +54,11 @@ public final class BuyGoodsScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 goods_id = 1;</code>
-     * @return whether the goodsId field is set
-     */
-    public boolean hasGoodsId() {
-      return (bitField0_ & 0x00000001) != 0;
-    }
-
-    /**
-     * <code>optional uint32 goods_id = 1;</code>
-     * @return this
-     */
-    public BuyGoodsScRsp clearGoodsId() {
-      bitField0_ &= ~0x00000001;
-      goodsId = 0;
-      return this;
-    }
-
-    /**
-     * <code>optional uint32 goods_id = 1;</code>
-     * @return the goodsId
-     */
-    public int getGoodsId() {
-      return goodsId;
-    }
-
-    /**
-     * <code>optional uint32 goods_id = 1;</code>
-     * @param value the goodsId to set
-     * @return this
-     */
-    public BuyGoodsScRsp setGoodsId(final int value) {
-      bitField0_ |= 0x00000001;
-      goodsId = value;
-      return this;
-    }
-
-    /**
      * <code>optional uint32 retcode = 3;</code>
      * @return whether the retcode field is set
      */
     public boolean hasRetcode() {
-      return (bitField0_ & 0x00000002) != 0;
+      return (bitField0_ & 0x00000001) != 0;
     }
 
     /**
@@ -103,7 +66,7 @@ public final class BuyGoodsScRspOuterClass {
      * @return this
      */
     public BuyGoodsScRsp clearRetcode() {
-      bitField0_ &= ~0x00000002;
+      bitField0_ &= ~0x00000001;
       retcode = 0;
       return this;
     }
@@ -122,31 +85,31 @@ public final class BuyGoodsScRspOuterClass {
      * @return this
      */
     public BuyGoodsScRsp setRetcode(final int value) {
-      bitField0_ |= 0x00000002;
+      bitField0_ |= 0x00000001;
       retcode = value;
       return this;
     }
 
     /**
-     * <code>optional uint32 goods_buy_times = 11;</code>
+     * <code>optional uint32 goods_buy_times = 8;</code>
      * @return whether the goodsBuyTimes field is set
      */
     public boolean hasGoodsBuyTimes() {
-      return (bitField0_ & 0x00000004) != 0;
+      return (bitField0_ & 0x00000002) != 0;
     }
 
     /**
-     * <code>optional uint32 goods_buy_times = 11;</code>
+     * <code>optional uint32 goods_buy_times = 8;</code>
      * @return this
      */
     public BuyGoodsScRsp clearGoodsBuyTimes() {
-      bitField0_ &= ~0x00000004;
+      bitField0_ &= ~0x00000002;
       goodsBuyTimes = 0;
       return this;
     }
 
     /**
-     * <code>optional uint32 goods_buy_times = 11;</code>
+     * <code>optional uint32 goods_buy_times = 8;</code>
      * @return the goodsBuyTimes
      */
     public int getGoodsBuyTimes() {
@@ -154,13 +117,50 @@ public final class BuyGoodsScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 goods_buy_times = 11;</code>
+     * <code>optional uint32 goods_buy_times = 8;</code>
      * @param value the goodsBuyTimes to set
      * @return this
      */
     public BuyGoodsScRsp setGoodsBuyTimes(final int value) {
-      bitField0_ |= 0x00000004;
+      bitField0_ |= 0x00000002;
       goodsBuyTimes = value;
+      return this;
+    }
+
+    /**
+     * <code>optional uint32 goods_id = 14;</code>
+     * @return whether the goodsId field is set
+     */
+    public boolean hasGoodsId() {
+      return (bitField0_ & 0x00000004) != 0;
+    }
+
+    /**
+     * <code>optional uint32 goods_id = 14;</code>
+     * @return this
+     */
+    public BuyGoodsScRsp clearGoodsId() {
+      bitField0_ &= ~0x00000004;
+      goodsId = 0;
+      return this;
+    }
+
+    /**
+     * <code>optional uint32 goods_id = 14;</code>
+     * @return the goodsId
+     */
+    public int getGoodsId() {
+      return goodsId;
+    }
+
+    /**
+     * <code>optional uint32 goods_id = 14;</code>
+     * @param value the goodsId to set
+     * @return this
+     */
+    public BuyGoodsScRsp setGoodsId(final int value) {
+      bitField0_ |= 0x00000004;
+      goodsId = value;
       return this;
     }
 
@@ -202,7 +202,7 @@ public final class BuyGoodsScRspOuterClass {
     }
 
     /**
-     * <code>optional .ItemList return_item_list = 5;</code>
+     * <code>optional .ItemList return_item_list = 4;</code>
      * @return whether the returnItemList field is set
      */
     public boolean hasReturnItemList() {
@@ -210,7 +210,7 @@ public final class BuyGoodsScRspOuterClass {
     }
 
     /**
-     * <code>optional .ItemList return_item_list = 5;</code>
+     * <code>optional .ItemList return_item_list = 4;</code>
      * @return this
      */
     public BuyGoodsScRsp clearReturnItemList() {
@@ -220,7 +220,7 @@ public final class BuyGoodsScRspOuterClass {
     }
 
     /**
-     * <code>optional .ItemList return_item_list = 5;</code>
+     * <code>optional .ItemList return_item_list = 4;</code>
      *
      * This method returns the internal storage object without modifying any has state.
      * The returned object should not be modified and be treated as read-only.
@@ -234,7 +234,7 @@ public final class BuyGoodsScRspOuterClass {
     }
 
     /**
-     * <code>optional .ItemList return_item_list = 5;</code>
+     * <code>optional .ItemList return_item_list = 4;</code>
      *
      * This method returns the internal storage object and sets the corresponding
      * has state. The returned object will become part of this message and its
@@ -248,7 +248,7 @@ public final class BuyGoodsScRspOuterClass {
     }
 
     /**
-     * <code>optional .ItemList return_item_list = 5;</code>
+     * <code>optional .ItemList return_item_list = 4;</code>
      * @param value the returnItemList to set
      * @return this
      */
@@ -263,9 +263,9 @@ public final class BuyGoodsScRspOuterClass {
       cachedSize = other.cachedSize;
       if ((bitField0_ | other.bitField0_) != 0) {
         bitField0_ = other.bitField0_;
-        goodsId = other.goodsId;
         retcode = other.retcode;
         goodsBuyTimes = other.goodsBuyTimes;
+        goodsId = other.goodsId;
         shopId = other.shopId;
         returnItemList.copyFrom(other.returnItemList);
       }
@@ -278,14 +278,14 @@ public final class BuyGoodsScRspOuterClass {
         return this;
       }
       cachedSize = -1;
-      if (other.hasGoodsId()) {
-        setGoodsId(other.goodsId);
-      }
       if (other.hasRetcode()) {
         setRetcode(other.retcode);
       }
       if (other.hasGoodsBuyTimes()) {
         setGoodsBuyTimes(other.goodsBuyTimes);
+      }
+      if (other.hasGoodsId()) {
+        setGoodsId(other.goodsId);
       }
       if (other.hasShopId()) {
         setShopId(other.shopId);
@@ -303,9 +303,9 @@ public final class BuyGoodsScRspOuterClass {
       }
       cachedSize = -1;
       bitField0_ = 0;
-      goodsId = 0;
       retcode = 0;
       goodsBuyTimes = 0;
+      goodsId = 0;
       shopId = 0;
       returnItemList.clear();
       return this;
@@ -332,9 +332,9 @@ public final class BuyGoodsScRspOuterClass {
       }
       BuyGoodsScRsp other = (BuyGoodsScRsp) o;
       return bitField0_ == other.bitField0_
-        && (!hasGoodsId() || goodsId == other.goodsId)
         && (!hasRetcode() || retcode == other.retcode)
         && (!hasGoodsBuyTimes() || goodsBuyTimes == other.goodsBuyTimes)
+        && (!hasGoodsId() || goodsId == other.goodsId)
         && (!hasShopId() || shopId == other.shopId)
         && (!hasReturnItemList() || returnItemList.equals(other.returnItemList));
     }
@@ -342,23 +342,23 @@ public final class BuyGoodsScRspOuterClass {
     @Override
     public void writeTo(final ProtoSink output) throws IOException {
       if ((bitField0_ & 0x00000001) != 0) {
-        output.writeRawByte((byte) 8);
-        output.writeUInt32NoTag(goodsId);
-      }
-      if ((bitField0_ & 0x00000002) != 0) {
         output.writeRawByte((byte) 24);
         output.writeUInt32NoTag(retcode);
       }
-      if ((bitField0_ & 0x00000004) != 0) {
-        output.writeRawByte((byte) 88);
+      if ((bitField0_ & 0x00000002) != 0) {
+        output.writeRawByte((byte) 64);
         output.writeUInt32NoTag(goodsBuyTimes);
+      }
+      if ((bitField0_ & 0x00000004) != 0) {
+        output.writeRawByte((byte) 112);
+        output.writeUInt32NoTag(goodsId);
       }
       if ((bitField0_ & 0x00000008) != 0) {
         output.writeRawByte((byte) 120);
         output.writeUInt32NoTag(shopId);
       }
       if ((bitField0_ & 0x00000010) != 0) {
-        output.writeRawByte((byte) 42);
+        output.writeRawByte((byte) 34);
         output.writeMessageNoTag(returnItemList);
       }
     }
@@ -367,13 +367,13 @@ public final class BuyGoodsScRspOuterClass {
     protected int computeSerializedSize() {
       int size = 0;
       if ((bitField0_ & 0x00000001) != 0) {
-        size += 1 + ProtoSink.computeUInt32SizeNoTag(goodsId);
-      }
-      if ((bitField0_ & 0x00000002) != 0) {
         size += 1 + ProtoSink.computeUInt32SizeNoTag(retcode);
       }
-      if ((bitField0_ & 0x00000004) != 0) {
+      if ((bitField0_ & 0x00000002) != 0) {
         size += 1 + ProtoSink.computeUInt32SizeNoTag(goodsBuyTimes);
+      }
+      if ((bitField0_ & 0x00000004) != 0) {
+        size += 1 + ProtoSink.computeUInt32SizeNoTag(goodsId);
       }
       if ((bitField0_ & 0x00000008) != 0) {
         size += 1 + ProtoSink.computeUInt32SizeNoTag(shopId);
@@ -391,27 +391,27 @@ public final class BuyGoodsScRspOuterClass {
       int tag = input.readTag();
       while (true) {
         switch (tag) {
-          case 8: {
-            // goodsId
-            goodsId = input.readUInt32();
-            bitField0_ |= 0x00000001;
-            tag = input.readTag();
-            if (tag != 24) {
-              break;
-            }
-          }
           case 24: {
             // retcode
             retcode = input.readUInt32();
-            bitField0_ |= 0x00000002;
+            bitField0_ |= 0x00000001;
             tag = input.readTag();
-            if (tag != 88) {
+            if (tag != 64) {
               break;
             }
           }
-          case 88: {
+          case 64: {
             // goodsBuyTimes
             goodsBuyTimes = input.readUInt32();
+            bitField0_ |= 0x00000002;
+            tag = input.readTag();
+            if (tag != 112) {
+              break;
+            }
+          }
+          case 112: {
+            // goodsId
+            goodsId = input.readUInt32();
             bitField0_ |= 0x00000004;
             tag = input.readTag();
             if (tag != 120) {
@@ -423,11 +423,11 @@ public final class BuyGoodsScRspOuterClass {
             shopId = input.readUInt32();
             bitField0_ |= 0x00000008;
             tag = input.readTag();
-            if (tag != 42) {
+            if (tag != 34) {
               break;
             }
           }
-          case 42: {
+          case 34: {
             // returnItemList
             input.readMessage(returnItemList);
             bitField0_ |= 0x00000010;
@@ -454,13 +454,13 @@ public final class BuyGoodsScRspOuterClass {
     public void writeTo(final JsonSink output) throws IOException {
       output.beginObject();
       if ((bitField0_ & 0x00000001) != 0) {
-        output.writeUInt32(FieldNames.goodsId, goodsId);
-      }
-      if ((bitField0_ & 0x00000002) != 0) {
         output.writeUInt32(FieldNames.retcode, retcode);
       }
-      if ((bitField0_ & 0x00000004) != 0) {
+      if ((bitField0_ & 0x00000002) != 0) {
         output.writeUInt32(FieldNames.goodsBuyTimes, goodsBuyTimes);
+      }
+      if ((bitField0_ & 0x00000004) != 0) {
+        output.writeUInt32(FieldNames.goodsId, goodsId);
       }
       if ((bitField0_ & 0x00000008) != 0) {
         output.writeUInt32(FieldNames.shopId, shopId);
@@ -478,23 +478,11 @@ public final class BuyGoodsScRspOuterClass {
       }
       while (!input.isAtEnd()) {
         switch (input.readFieldHash()) {
-          case 207037201:
-          case 2123207332: {
-            if (input.isAtField(FieldNames.goodsId)) {
-              if (!input.trySkipNullValue()) {
-                goodsId = input.readUInt32();
-                bitField0_ |= 0x00000001;
-              }
-            } else {
-              input.skipUnknownField();
-            }
-            break;
-          }
           case 1097936398: {
             if (input.isAtField(FieldNames.retcode)) {
               if (!input.trySkipNullValue()) {
                 retcode = input.readUInt32();
-                bitField0_ |= 0x00000002;
+                bitField0_ |= 0x00000001;
               }
             } else {
               input.skipUnknownField();
@@ -506,6 +494,18 @@ public final class BuyGoodsScRspOuterClass {
             if (input.isAtField(FieldNames.goodsBuyTimes)) {
               if (!input.trySkipNullValue()) {
                 goodsBuyTimes = input.readUInt32();
+                bitField0_ |= 0x00000002;
+              }
+            } else {
+              input.skipUnknownField();
+            }
+            break;
+          }
+          case 207037201:
+          case 2123207332: {
+            if (input.isAtField(FieldNames.goodsId)) {
+              if (!input.trySkipNullValue()) {
+                goodsId = input.readUInt32();
                 bitField0_ |= 0x00000004;
               }
             } else {
@@ -589,11 +589,11 @@ public final class BuyGoodsScRspOuterClass {
      * Contains name constants used for serializing JSON
      */
     static class FieldNames {
-      static final FieldName goodsId = FieldName.forField("goodsId", "goods_id");
-
       static final FieldName retcode = FieldName.forField("retcode");
 
       static final FieldName goodsBuyTimes = FieldName.forField("goodsBuyTimes", "goods_buy_times");
+
+      static final FieldName goodsId = FieldName.forField("goodsId", "goods_id");
 
       static final FieldName shopId = FieldName.forField("shopId", "shop_id");
 

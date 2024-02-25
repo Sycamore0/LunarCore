@@ -5,13 +5,15 @@ import emu.lunarcore.data.excel.RelicSubAffixExcel;
 import emu.lunarcore.proto.RelicAffixOuterClass.RelicAffix;
 import emu.lunarcore.util.Utils;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Entity(useDiscriminator = false)
-public class GameItemSubAffix {
+public class GameItemSubAffix implements Comparable<GameItemSubAffix> {
     private int id; // Affix id
-    private int count;
-    private int step;
+    
+    @Setter private int count;
+    @Setter private int step;
 	
     @Deprecated
     public GameItemSubAffix() {
@@ -40,5 +42,10 @@ public class GameItemSubAffix {
                 .setStep(this.step);
         
         return proto;
+    }
+
+    @Override
+    public int compareTo(GameItemSubAffix o) {
+        return this.getId() - o.getId();
     }
 }

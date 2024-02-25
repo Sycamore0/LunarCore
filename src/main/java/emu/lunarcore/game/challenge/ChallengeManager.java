@@ -1,17 +1,22 @@
 package emu.lunarcore.game.challenge;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
 import emu.lunarcore.GameConstants;
 import emu.lunarcore.LunarCore;
 import emu.lunarcore.data.GameData;
+import emu.lunarcore.data.GameDepot;
+import emu.lunarcore.data.common.ItemParam;
 import emu.lunarcore.data.excel.ChallengeExcel;
-import emu.lunarcore.game.inventory.GameItem;
 import emu.lunarcore.game.player.BasePlayerManager;
 import emu.lunarcore.game.player.Player;
 import emu.lunarcore.game.player.lineup.PlayerLineup;
 import emu.lunarcore.proto.ExtraLineupTypeOuterClass.ExtraLineupType;
+import emu.lunarcore.proto.StartChallengeStoryBuffInfoOuterClass.StartChallengeStoryBuffInfo;
+import emu.lunarcore.proto.TakenChallengeRewardInfoOuterClass.TakenChallengeRewardInfo;
+import emu.lunarcore.server.packet.Retcode;
 import emu.lunarcore.server.packet.send.PacketStartChallengeScRsp;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -28,11 +33,11 @@ public class ChallengeManager extends BasePlayerManager {
         this.takenRewards = new Int2ObjectOpenHashMap<>();
     }
     
-    public void startChallenge(int challengeId) {
+    public void startChallenge(int challengeId, StartChallengeStoryBuffInfo storyBuffs) {
         // Get challenge excel
         ChallengeExcel excel = GameData.getChallengeExcelMap().get(challengeId);
         if (excel == null) {
-            getPlayer().sendPacket(new PacketStartChallengeScRsp());
+            getPlayer().sendPacket(new PacketStartChallengeScRsp(Retcode.CHALLENGE_NOT_EXIST));
             return;
         }
         
@@ -41,7 +46,10 @@ public class ChallengeManager extends BasePlayerManager {
             // Get lineup
             PlayerLineup lineup = getPlayer().getLineupManager().getExtraLineupByType(ExtraLineupType.LINEUP_CHALLENGE_VALUE);
             // Make sure this lineup has avatars set
-            if (lineup.getAvatars().size() == 0) return;
+            if (lineup.getAvatars().size() == 0) {
+                getPlayer().sendPacket(new PacketStartChallengeScRsp(Retcode.CHALLENGE_LINEUP_EMPTY));
+                return;
+            }
             // Reset hp/sp
             lineup.forEachAvatar(avatar -> {
                 avatar.setCurrentHp(lineup, 10000);
@@ -55,7 +63,10 @@ public class ChallengeManager extends BasePlayerManager {
             // Get lineup
             PlayerLineup lineup = getPlayer().getLineupManager().getExtraLineupByType(ExtraLineupType.LINEUP_CHALLENGE_2_VALUE);
             // Make sure this lineup has avatars set
-            if (lineup.getAvatars().size() == 0) return;
+            if (lineup.getAvatars().size() == 0) {
+                getPlayer().sendPacket(new PacketStartChallengeScRsp(Retcode.CHALLENGE_LINEUP_EMPTY));
+                return;
+            }
             // Reset hp/sp
             lineup.forEachAvatar(avatar -> {
                 avatar.setCurrentHp(lineup, 10000);
@@ -68,7 +79,7 @@ public class ChallengeManager extends BasePlayerManager {
         // Set challenge data for player
         ChallengeInstance instance = new ChallengeInstance(getPlayer(), excel);
         getPlayer().setChallengeInstance(instance);
-        
+
         // Set first lineup before we enter scenes
         getPlayer().getLineupManager().setCurrentExtraLineup(instance.getCurrentExtraLineup(), false);
         
@@ -79,7 +90,7 @@ public class ChallengeManager extends BasePlayerManager {
             getPlayer().getLineupManager().setCurrentExtraLineup(0, false);
             getPlayer().setChallengeInstance(null);
             // Send error packet
-            getPlayer().sendPacket(new PacketStartChallengeScRsp());
+            getPlayer().sendPacket(new PacketStartChallengeScRsp(Retcode.CHALLENGE_NOT_EXIST));
             return;
         }
         
@@ -87,12 +98,18 @@ public class ChallengeManager extends BasePlayerManager {
         instance.getStartPos().set(getPlayer().getPos());
         instance.getStartRot().set(getPlayer().getRot());
         instance.setSavedMp(getPlayer().getCurrentLineup().getMp());
+        
+        // Set story buffs
+        if (excel.isStory() && storyBuffs != null) {
+            instance.addStoryBuff(storyBuffs.getStoryBuffOne());
+            instance.addStoryBuff(storyBuffs.getStoryBuffTwo());
+        }
 
         // Send packet
         getPlayer().sendPacket(new PacketStartChallengeScRsp(getPlayer(), challengeId));
     }
     
-    public synchronized void addHistory(int challengeId, int stars) {
+    public synchronized void addHistory(int challengeId, int stars, int score) {
         // Dont write challenge history if the player didnt get any stars
         if (stars <= 0) return;
         
@@ -101,21 +118,19 @@ public class ChallengeManager extends BasePlayerManager {
 
         // Set
         info.setStars(stars);
+        info.setScore(score);
         info.save();
     }
     
-    public synchronized List<GameItem> takeRewards(int groupId, int starCount) {
+    public synchronized List<TakenChallengeRewardInfo> takeRewards(int groupId) {
         // Get excels
         var challengeGroup = GameData.getChallengeGroupExcelMap().get(groupId);
         if (challengeGroup == null) return null;
         
-        var challengeReward = GameData.getChallengeRewardExcel(challengeGroup.getRewardLineGroupID(), starCount);
-        if (challengeReward == null) return null;
+        var challengeRewardLine = GameDepot.getChallengeRewardLines().get(challengeGroup.getRewardLineGroupID());
+        if (challengeRewardLine == null) return null;
         
-        var rewardExcel = GameData.getRewardExcelMap().get(challengeReward.getRewardID());
-        if (rewardExcel == null) return null;
-        
-        // Validate
+        // Get total stars
         int totalStars = 0;
         for (ChallengeHistory ch : this.getHistory().values()) {
             // Legacy compatibility
@@ -133,22 +148,47 @@ public class ChallengeManager extends BasePlayerManager {
             }
         }
         
-        // Check if the player has enough stars
-        if (totalStars < starCount) {
-            return null;
+        // Rewards
+        List<TakenChallengeRewardInfo> rewardInfos = new ArrayList<>();
+        List<ItemParam> rewardItems = new ArrayList<>();
+        
+        // Get challenge rewards
+        for (var challengeReward : challengeRewardLine) {
+            // Check if we have enough stars to take this reward
+            if (totalStars < challengeReward.getStarCount()) {
+                continue;
+            }
+            
+            // Get reward info
+            var reward = this.getTakenRewards().computeIfAbsent(groupId, id -> new ChallengeGroupReward(getPlayer(), groupId));
+            
+            // Check if reward has been taken
+            if (reward.hasTakenReward(challengeReward.getStarCount())) {
+                continue;
+            }
+            
+            // Set reward as taken
+            reward.setTakenReward(challengeReward.getStarCount());
+            
+            // Get reward excel
+            var rewardExcel = GameData.getRewardExcelMap().get(challengeReward.getRewardID());
+            if (rewardExcel == null) continue;
+            
+            // Add rewards
+            var proto = TakenChallengeRewardInfo.newInstance()
+                    .setStarCount(challengeReward.getStarCount());
+            
+            for (ItemParam itemParam : rewardExcel.getRewards()) {
+                proto.getMutableReward().addItemList(itemParam.toProto());
+                rewardItems.add(itemParam);
+            }
+            
+            rewardInfos.add(proto);
         }
-        
-        // Get reward info
-        var reward = this.getTakenRewards().computeIfAbsent(groupId, id -> new ChallengeGroupReward(getPlayer(), groupId));
-        
-        if (reward.hasTakenReward(starCount)) {
-            return null;
-        }
-        
-        reward.setTakenReward(starCount);
         
         // Add items to inventory
-        return getPlayer().getInventory().addItemParams(rewardExcel.getRewards());
+        getPlayer().getInventory().addItemParams(rewardItems);
+        return rewardInfos;
     }
     
     public void loadFromDatabase() {

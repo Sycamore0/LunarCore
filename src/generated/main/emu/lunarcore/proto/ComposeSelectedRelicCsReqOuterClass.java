@@ -19,27 +19,27 @@ public final class ComposeSelectedRelicCsReqOuterClass {
     private static final long serialVersionUID = 0L;
 
     /**
-     * <code>optional uint32 compose_id = 5;</code>
-     */
-    private int composeId;
-
-    /**
-     * <code>optional uint32 compose_relic_id = 10;</code>
-     */
-    private int composeRelicId;
-
-    /**
-     * <code>optional uint32 count = 11;</code>
+     * <code>optional uint32 count = 9;</code>
      */
     private int count;
 
     /**
-     * <code>optional uint32 main_affix_id = 12;</code>
+     * <code>optional uint32 compose_id = 10;</code>
+     */
+    private int composeId;
+
+    /**
+     * <code>optional uint32 main_affix_id = 13;</code>
      */
     private int mainAffixId;
 
     /**
-     * <code>optional .ItemCostList compose_item_list = 4;</code>
+     * <code>optional uint32 compose_relic_id = 14;</code>
+     */
+    private int composeRelicId;
+
+    /**
+     * <code>optional .ItemCostList compose_item_list = 6;</code>
      */
     private final ItemCostListOuterClass.ItemCostList composeItemList = ItemCostListOuterClass.ItemCostList.newInstance();
 
@@ -54,99 +54,25 @@ public final class ComposeSelectedRelicCsReqOuterClass {
     }
 
     /**
-     * <code>optional uint32 compose_id = 5;</code>
-     * @return whether the composeId field is set
+     * <code>optional uint32 count = 9;</code>
+     * @return whether the count field is set
      */
-    public boolean hasComposeId() {
+    public boolean hasCount() {
       return (bitField0_ & 0x00000001) != 0;
     }
 
     /**
-     * <code>optional uint32 compose_id = 5;</code>
-     * @return this
-     */
-    public ComposeSelectedRelicCsReq clearComposeId() {
-      bitField0_ &= ~0x00000001;
-      composeId = 0;
-      return this;
-    }
-
-    /**
-     * <code>optional uint32 compose_id = 5;</code>
-     * @return the composeId
-     */
-    public int getComposeId() {
-      return composeId;
-    }
-
-    /**
-     * <code>optional uint32 compose_id = 5;</code>
-     * @param value the composeId to set
-     * @return this
-     */
-    public ComposeSelectedRelicCsReq setComposeId(final int value) {
-      bitField0_ |= 0x00000001;
-      composeId = value;
-      return this;
-    }
-
-    /**
-     * <code>optional uint32 compose_relic_id = 10;</code>
-     * @return whether the composeRelicId field is set
-     */
-    public boolean hasComposeRelicId() {
-      return (bitField0_ & 0x00000002) != 0;
-    }
-
-    /**
-     * <code>optional uint32 compose_relic_id = 10;</code>
-     * @return this
-     */
-    public ComposeSelectedRelicCsReq clearComposeRelicId() {
-      bitField0_ &= ~0x00000002;
-      composeRelicId = 0;
-      return this;
-    }
-
-    /**
-     * <code>optional uint32 compose_relic_id = 10;</code>
-     * @return the composeRelicId
-     */
-    public int getComposeRelicId() {
-      return composeRelicId;
-    }
-
-    /**
-     * <code>optional uint32 compose_relic_id = 10;</code>
-     * @param value the composeRelicId to set
-     * @return this
-     */
-    public ComposeSelectedRelicCsReq setComposeRelicId(final int value) {
-      bitField0_ |= 0x00000002;
-      composeRelicId = value;
-      return this;
-    }
-
-    /**
-     * <code>optional uint32 count = 11;</code>
-     * @return whether the count field is set
-     */
-    public boolean hasCount() {
-      return (bitField0_ & 0x00000004) != 0;
-    }
-
-    /**
-     * <code>optional uint32 count = 11;</code>
+     * <code>optional uint32 count = 9;</code>
      * @return this
      */
     public ComposeSelectedRelicCsReq clearCount() {
-      bitField0_ &= ~0x00000004;
+      bitField0_ &= ~0x00000001;
       count = 0;
       return this;
     }
 
     /**
-     * <code>optional uint32 count = 11;</code>
+     * <code>optional uint32 count = 9;</code>
      * @return the count
      */
     public int getCount() {
@@ -154,36 +80,73 @@ public final class ComposeSelectedRelicCsReqOuterClass {
     }
 
     /**
-     * <code>optional uint32 count = 11;</code>
+     * <code>optional uint32 count = 9;</code>
      * @param value the count to set
      * @return this
      */
     public ComposeSelectedRelicCsReq setCount(final int value) {
-      bitField0_ |= 0x00000004;
+      bitField0_ |= 0x00000001;
       count = value;
       return this;
     }
 
     /**
-     * <code>optional uint32 main_affix_id = 12;</code>
-     * @return whether the mainAffixId field is set
+     * <code>optional uint32 compose_id = 10;</code>
+     * @return whether the composeId field is set
      */
-    public boolean hasMainAffixId() {
-      return (bitField0_ & 0x00000008) != 0;
+    public boolean hasComposeId() {
+      return (bitField0_ & 0x00000002) != 0;
     }
 
     /**
-     * <code>optional uint32 main_affix_id = 12;</code>
+     * <code>optional uint32 compose_id = 10;</code>
+     * @return this
+     */
+    public ComposeSelectedRelicCsReq clearComposeId() {
+      bitField0_ &= ~0x00000002;
+      composeId = 0;
+      return this;
+    }
+
+    /**
+     * <code>optional uint32 compose_id = 10;</code>
+     * @return the composeId
+     */
+    public int getComposeId() {
+      return composeId;
+    }
+
+    /**
+     * <code>optional uint32 compose_id = 10;</code>
+     * @param value the composeId to set
+     * @return this
+     */
+    public ComposeSelectedRelicCsReq setComposeId(final int value) {
+      bitField0_ |= 0x00000002;
+      composeId = value;
+      return this;
+    }
+
+    /**
+     * <code>optional uint32 main_affix_id = 13;</code>
+     * @return whether the mainAffixId field is set
+     */
+    public boolean hasMainAffixId() {
+      return (bitField0_ & 0x00000004) != 0;
+    }
+
+    /**
+     * <code>optional uint32 main_affix_id = 13;</code>
      * @return this
      */
     public ComposeSelectedRelicCsReq clearMainAffixId() {
-      bitField0_ &= ~0x00000008;
+      bitField0_ &= ~0x00000004;
       mainAffixId = 0;
       return this;
     }
 
     /**
-     * <code>optional uint32 main_affix_id = 12;</code>
+     * <code>optional uint32 main_affix_id = 13;</code>
      * @return the mainAffixId
      */
     public int getMainAffixId() {
@@ -191,18 +154,55 @@ public final class ComposeSelectedRelicCsReqOuterClass {
     }
 
     /**
-     * <code>optional uint32 main_affix_id = 12;</code>
+     * <code>optional uint32 main_affix_id = 13;</code>
      * @param value the mainAffixId to set
      * @return this
      */
     public ComposeSelectedRelicCsReq setMainAffixId(final int value) {
-      bitField0_ |= 0x00000008;
+      bitField0_ |= 0x00000004;
       mainAffixId = value;
       return this;
     }
 
     /**
-     * <code>optional .ItemCostList compose_item_list = 4;</code>
+     * <code>optional uint32 compose_relic_id = 14;</code>
+     * @return whether the composeRelicId field is set
+     */
+    public boolean hasComposeRelicId() {
+      return (bitField0_ & 0x00000008) != 0;
+    }
+
+    /**
+     * <code>optional uint32 compose_relic_id = 14;</code>
+     * @return this
+     */
+    public ComposeSelectedRelicCsReq clearComposeRelicId() {
+      bitField0_ &= ~0x00000008;
+      composeRelicId = 0;
+      return this;
+    }
+
+    /**
+     * <code>optional uint32 compose_relic_id = 14;</code>
+     * @return the composeRelicId
+     */
+    public int getComposeRelicId() {
+      return composeRelicId;
+    }
+
+    /**
+     * <code>optional uint32 compose_relic_id = 14;</code>
+     * @param value the composeRelicId to set
+     * @return this
+     */
+    public ComposeSelectedRelicCsReq setComposeRelicId(final int value) {
+      bitField0_ |= 0x00000008;
+      composeRelicId = value;
+      return this;
+    }
+
+    /**
+     * <code>optional .ItemCostList compose_item_list = 6;</code>
      * @return whether the composeItemList field is set
      */
     public boolean hasComposeItemList() {
@@ -210,7 +210,7 @@ public final class ComposeSelectedRelicCsReqOuterClass {
     }
 
     /**
-     * <code>optional .ItemCostList compose_item_list = 4;</code>
+     * <code>optional .ItemCostList compose_item_list = 6;</code>
      * @return this
      */
     public ComposeSelectedRelicCsReq clearComposeItemList() {
@@ -220,7 +220,7 @@ public final class ComposeSelectedRelicCsReqOuterClass {
     }
 
     /**
-     * <code>optional .ItemCostList compose_item_list = 4;</code>
+     * <code>optional .ItemCostList compose_item_list = 6;</code>
      *
      * This method returns the internal storage object without modifying any has state.
      * The returned object should not be modified and be treated as read-only.
@@ -234,7 +234,7 @@ public final class ComposeSelectedRelicCsReqOuterClass {
     }
 
     /**
-     * <code>optional .ItemCostList compose_item_list = 4;</code>
+     * <code>optional .ItemCostList compose_item_list = 6;</code>
      *
      * This method returns the internal storage object and sets the corresponding
      * has state. The returned object will become part of this message and its
@@ -248,7 +248,7 @@ public final class ComposeSelectedRelicCsReqOuterClass {
     }
 
     /**
-     * <code>optional .ItemCostList compose_item_list = 4;</code>
+     * <code>optional .ItemCostList compose_item_list = 6;</code>
      * @param value the composeItemList to set
      * @return this
      */
@@ -264,10 +264,10 @@ public final class ComposeSelectedRelicCsReqOuterClass {
       cachedSize = other.cachedSize;
       if ((bitField0_ | other.bitField0_) != 0) {
         bitField0_ = other.bitField0_;
-        composeId = other.composeId;
-        composeRelicId = other.composeRelicId;
         count = other.count;
+        composeId = other.composeId;
         mainAffixId = other.mainAffixId;
+        composeRelicId = other.composeRelicId;
         composeItemList.copyFrom(other.composeItemList);
       }
       return this;
@@ -279,17 +279,17 @@ public final class ComposeSelectedRelicCsReqOuterClass {
         return this;
       }
       cachedSize = -1;
-      if (other.hasComposeId()) {
-        setComposeId(other.composeId);
-      }
-      if (other.hasComposeRelicId()) {
-        setComposeRelicId(other.composeRelicId);
-      }
       if (other.hasCount()) {
         setCount(other.count);
       }
+      if (other.hasComposeId()) {
+        setComposeId(other.composeId);
+      }
       if (other.hasMainAffixId()) {
         setMainAffixId(other.mainAffixId);
+      }
+      if (other.hasComposeRelicId()) {
+        setComposeRelicId(other.composeRelicId);
       }
       if (other.hasComposeItemList()) {
         getMutableComposeItemList().mergeFrom(other.composeItemList);
@@ -304,10 +304,10 @@ public final class ComposeSelectedRelicCsReqOuterClass {
       }
       cachedSize = -1;
       bitField0_ = 0;
-      composeId = 0;
-      composeRelicId = 0;
       count = 0;
+      composeId = 0;
       mainAffixId = 0;
+      composeRelicId = 0;
       composeItemList.clear();
       return this;
     }
@@ -333,33 +333,33 @@ public final class ComposeSelectedRelicCsReqOuterClass {
       }
       ComposeSelectedRelicCsReq other = (ComposeSelectedRelicCsReq) o;
       return bitField0_ == other.bitField0_
-        && (!hasComposeId() || composeId == other.composeId)
-        && (!hasComposeRelicId() || composeRelicId == other.composeRelicId)
         && (!hasCount() || count == other.count)
+        && (!hasComposeId() || composeId == other.composeId)
         && (!hasMainAffixId() || mainAffixId == other.mainAffixId)
+        && (!hasComposeRelicId() || composeRelicId == other.composeRelicId)
         && (!hasComposeItemList() || composeItemList.equals(other.composeItemList));
     }
 
     @Override
     public void writeTo(final ProtoSink output) throws IOException {
       if ((bitField0_ & 0x00000001) != 0) {
-        output.writeRawByte((byte) 40);
-        output.writeUInt32NoTag(composeId);
+        output.writeRawByte((byte) 72);
+        output.writeUInt32NoTag(count);
       }
       if ((bitField0_ & 0x00000002) != 0) {
         output.writeRawByte((byte) 80);
-        output.writeUInt32NoTag(composeRelicId);
+        output.writeUInt32NoTag(composeId);
       }
       if ((bitField0_ & 0x00000004) != 0) {
-        output.writeRawByte((byte) 88);
-        output.writeUInt32NoTag(count);
-      }
-      if ((bitField0_ & 0x00000008) != 0) {
-        output.writeRawByte((byte) 96);
+        output.writeRawByte((byte) 104);
         output.writeUInt32NoTag(mainAffixId);
       }
+      if ((bitField0_ & 0x00000008) != 0) {
+        output.writeRawByte((byte) 112);
+        output.writeUInt32NoTag(composeRelicId);
+      }
       if ((bitField0_ & 0x00000010) != 0) {
-        output.writeRawByte((byte) 34);
+        output.writeRawByte((byte) 50);
         output.writeMessageNoTag(composeItemList);
       }
     }
@@ -368,16 +368,16 @@ public final class ComposeSelectedRelicCsReqOuterClass {
     protected int computeSerializedSize() {
       int size = 0;
       if ((bitField0_ & 0x00000001) != 0) {
-        size += 1 + ProtoSink.computeUInt32SizeNoTag(composeId);
-      }
-      if ((bitField0_ & 0x00000002) != 0) {
-        size += 1 + ProtoSink.computeUInt32SizeNoTag(composeRelicId);
-      }
-      if ((bitField0_ & 0x00000004) != 0) {
         size += 1 + ProtoSink.computeUInt32SizeNoTag(count);
       }
-      if ((bitField0_ & 0x00000008) != 0) {
+      if ((bitField0_ & 0x00000002) != 0) {
+        size += 1 + ProtoSink.computeUInt32SizeNoTag(composeId);
+      }
+      if ((bitField0_ & 0x00000004) != 0) {
         size += 1 + ProtoSink.computeUInt32SizeNoTag(mainAffixId);
+      }
+      if ((bitField0_ & 0x00000008) != 0) {
+        size += 1 + ProtoSink.computeUInt32SizeNoTag(composeRelicId);
       }
       if ((bitField0_ & 0x00000010) != 0) {
         size += 1 + ProtoSink.computeMessageSizeNoTag(composeItemList);
@@ -392,9 +392,9 @@ public final class ComposeSelectedRelicCsReqOuterClass {
       int tag = input.readTag();
       while (true) {
         switch (tag) {
-          case 40: {
-            // composeId
-            composeId = input.readUInt32();
+          case 72: {
+            // count
+            count = input.readUInt32();
             bitField0_ |= 0x00000001;
             tag = input.readTag();
             if (tag != 80) {
@@ -402,33 +402,33 @@ public final class ComposeSelectedRelicCsReqOuterClass {
             }
           }
           case 80: {
-            // composeRelicId
-            composeRelicId = input.readUInt32();
+            // composeId
+            composeId = input.readUInt32();
             bitField0_ |= 0x00000002;
             tag = input.readTag();
-            if (tag != 88) {
+            if (tag != 104) {
               break;
             }
           }
-          case 88: {
-            // count
-            count = input.readUInt32();
-            bitField0_ |= 0x00000004;
-            tag = input.readTag();
-            if (tag != 96) {
-              break;
-            }
-          }
-          case 96: {
+          case 104: {
             // mainAffixId
             mainAffixId = input.readUInt32();
-            bitField0_ |= 0x00000008;
+            bitField0_ |= 0x00000004;
             tag = input.readTag();
-            if (tag != 34) {
+            if (tag != 112) {
               break;
             }
           }
-          case 34: {
+          case 112: {
+            // composeRelicId
+            composeRelicId = input.readUInt32();
+            bitField0_ |= 0x00000008;
+            tag = input.readTag();
+            if (tag != 50) {
+              break;
+            }
+          }
+          case 50: {
             // composeItemList
             input.readMessage(composeItemList);
             bitField0_ |= 0x00000010;
@@ -455,16 +455,16 @@ public final class ComposeSelectedRelicCsReqOuterClass {
     public void writeTo(final JsonSink output) throws IOException {
       output.beginObject();
       if ((bitField0_ & 0x00000001) != 0) {
-        output.writeUInt32(FieldNames.composeId, composeId);
-      }
-      if ((bitField0_ & 0x00000002) != 0) {
-        output.writeUInt32(FieldNames.composeRelicId, composeRelicId);
-      }
-      if ((bitField0_ & 0x00000004) != 0) {
         output.writeUInt32(FieldNames.count, count);
       }
-      if ((bitField0_ & 0x00000008) != 0) {
+      if ((bitField0_ & 0x00000002) != 0) {
+        output.writeUInt32(FieldNames.composeId, composeId);
+      }
+      if ((bitField0_ & 0x00000004) != 0) {
         output.writeUInt32(FieldNames.mainAffixId, mainAffixId);
+      }
+      if ((bitField0_ & 0x00000008) != 0) {
+        output.writeUInt32(FieldNames.composeRelicId, composeRelicId);
       }
       if ((bitField0_ & 0x00000010) != 0) {
         output.writeMessage(FieldNames.composeItemList, composeItemList);
@@ -479,11 +479,10 @@ public final class ComposeSelectedRelicCsReqOuterClass {
       }
       while (!input.isAtEnd()) {
         switch (input.readFieldHash()) {
-          case -1399759283:
-          case -442843416: {
-            if (input.isAtField(FieldNames.composeId)) {
+          case 94851343: {
+            if (input.isAtField(FieldNames.count)) {
               if (!input.trySkipNullValue()) {
-                composeId = input.readUInt32();
+                count = input.readUInt32();
                 bitField0_ |= 0x00000001;
               }
             } else {
@@ -491,23 +490,12 @@ public final class ComposeSelectedRelicCsReqOuterClass {
             }
             break;
           }
-          case 1424923132:
-          case 885799284: {
-            if (input.isAtField(FieldNames.composeRelicId)) {
+          case -1399759283:
+          case -442843416: {
+            if (input.isAtField(FieldNames.composeId)) {
               if (!input.trySkipNullValue()) {
-                composeRelicId = input.readUInt32();
+                composeId = input.readUInt32();
                 bitField0_ |= 0x00000002;
-              }
-            } else {
-              input.skipUnknownField();
-            }
-            break;
-          }
-          case 94851343: {
-            if (input.isAtField(FieldNames.count)) {
-              if (!input.trySkipNullValue()) {
-                count = input.readUInt32();
-                bitField0_ |= 0x00000004;
               }
             } else {
               input.skipUnknownField();
@@ -519,6 +507,18 @@ public final class ComposeSelectedRelicCsReqOuterClass {
             if (input.isAtField(FieldNames.mainAffixId)) {
               if (!input.trySkipNullValue()) {
                 mainAffixId = input.readUInt32();
+                bitField0_ |= 0x00000004;
+              }
+            } else {
+              input.skipUnknownField();
+            }
+            break;
+          }
+          case 1424923132:
+          case 885799284: {
+            if (input.isAtField(FieldNames.composeRelicId)) {
+              if (!input.trySkipNullValue()) {
+                composeRelicId = input.readUInt32();
                 bitField0_ |= 0x00000008;
               }
             } else {
@@ -591,13 +591,13 @@ public final class ComposeSelectedRelicCsReqOuterClass {
      * Contains name constants used for serializing JSON
      */
     static class FieldNames {
-      static final FieldName composeId = FieldName.forField("composeId", "compose_id");
-
-      static final FieldName composeRelicId = FieldName.forField("composeRelicId", "compose_relic_id");
-
       static final FieldName count = FieldName.forField("count");
 
+      static final FieldName composeId = FieldName.forField("composeId", "compose_id");
+
       static final FieldName mainAffixId = FieldName.forField("mainAffixId", "main_affix_id");
+
+      static final FieldName composeRelicId = FieldName.forField("composeRelicId", "compose_relic_id");
 
       static final FieldName composeItemList = FieldName.forField("composeItemList", "compose_item_list");
     }

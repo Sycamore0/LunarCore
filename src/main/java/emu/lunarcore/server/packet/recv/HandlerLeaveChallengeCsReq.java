@@ -17,9 +17,15 @@ public class HandlerLeaveChallengeCsReq extends PacketHandler {
             // As of 1.5.0, the server now has to handle the player leaving battle too
             session.getPlayer().forceQuitBattle();
             
+            // Get entry id
+            int leaveEntryId = GameConstants.CHALLENGE_ENTRANCE;
+            if (session.getPlayer().getScene().getLeaveEntryId() != 0) {
+                leaveEntryId = session.getPlayer().getScene().getLeaveEntryId();
+            }
+            
             // Leave scene
             session.getPlayer().getLineupManager().setCurrentExtraLineup(0, false);
-            session.getPlayer().enterScene(GameConstants.CHALLENGE_ENTRANCE, 0, true);
+            session.getPlayer().enterScene(leaveEntryId, 0, true);
         }
         
         // Send rsp packet to keep the client happy

@@ -20,17 +20,17 @@ public final class PlayerGetTokenScRspOuterClass {
     private static final long serialVersionUID = 0L;
 
     /**
-     * <code>optional uint64 secret_key_seed = 2;</code>
+     * <code>optional uint64 secret_key_seed = 10;</code>
      */
     private long secretKeySeed;
 
     /**
-     * <code>optional uint32 retcode = 10;</code>
+     * <code>optional uint32 retcode = 1;</code>
      */
     private int retcode;
 
     /**
-     * <code>optional uint32 uid = 14;</code>
+     * <code>optional uint32 uid = 3;</code>
      */
     private int uid;
 
@@ -55,7 +55,7 @@ public final class PlayerGetTokenScRspOuterClass {
     }
 
     /**
-     * <code>optional uint64 secret_key_seed = 2;</code>
+     * <code>optional uint64 secret_key_seed = 10;</code>
      * @return whether the secretKeySeed field is set
      */
     public boolean hasSecretKeySeed() {
@@ -63,7 +63,7 @@ public final class PlayerGetTokenScRspOuterClass {
     }
 
     /**
-     * <code>optional uint64 secret_key_seed = 2;</code>
+     * <code>optional uint64 secret_key_seed = 10;</code>
      * @return this
      */
     public PlayerGetTokenScRsp clearSecretKeySeed() {
@@ -73,7 +73,7 @@ public final class PlayerGetTokenScRspOuterClass {
     }
 
     /**
-     * <code>optional uint64 secret_key_seed = 2;</code>
+     * <code>optional uint64 secret_key_seed = 10;</code>
      * @return the secretKeySeed
      */
     public long getSecretKeySeed() {
@@ -81,7 +81,7 @@ public final class PlayerGetTokenScRspOuterClass {
     }
 
     /**
-     * <code>optional uint64 secret_key_seed = 2;</code>
+     * <code>optional uint64 secret_key_seed = 10;</code>
      * @param value the secretKeySeed to set
      * @return this
      */
@@ -92,7 +92,7 @@ public final class PlayerGetTokenScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 retcode = 10;</code>
+     * <code>optional uint32 retcode = 1;</code>
      * @return whether the retcode field is set
      */
     public boolean hasRetcode() {
@@ -100,7 +100,7 @@ public final class PlayerGetTokenScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 retcode = 10;</code>
+     * <code>optional uint32 retcode = 1;</code>
      * @return this
      */
     public PlayerGetTokenScRsp clearRetcode() {
@@ -110,7 +110,7 @@ public final class PlayerGetTokenScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 retcode = 10;</code>
+     * <code>optional uint32 retcode = 1;</code>
      * @return the retcode
      */
     public int getRetcode() {
@@ -118,7 +118,7 @@ public final class PlayerGetTokenScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 retcode = 10;</code>
+     * <code>optional uint32 retcode = 1;</code>
      * @param value the retcode to set
      * @return this
      */
@@ -129,7 +129,7 @@ public final class PlayerGetTokenScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 uid = 14;</code>
+     * <code>optional uint32 uid = 3;</code>
      * @return whether the uid field is set
      */
     public boolean hasUid() {
@@ -137,7 +137,7 @@ public final class PlayerGetTokenScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 uid = 14;</code>
+     * <code>optional uint32 uid = 3;</code>
      * @return this
      */
     public PlayerGetTokenScRsp clearUid() {
@@ -147,7 +147,7 @@ public final class PlayerGetTokenScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 uid = 14;</code>
+     * <code>optional uint32 uid = 3;</code>
      * @return the uid
      */
     public int getUid() {
@@ -155,7 +155,7 @@ public final class PlayerGetTokenScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 uid = 14;</code>
+     * <code>optional uint32 uid = 3;</code>
      * @param value the uid to set
      * @return this
      */
@@ -372,15 +372,15 @@ public final class PlayerGetTokenScRspOuterClass {
     @Override
     public void writeTo(final ProtoSink output) throws IOException {
       if ((bitField0_ & 0x00000001) != 0) {
-        output.writeRawByte((byte) 16);
+        output.writeRawByte((byte) 80);
         output.writeUInt64NoTag(secretKeySeed);
       }
       if ((bitField0_ & 0x00000002) != 0) {
-        output.writeRawByte((byte) 80);
+        output.writeRawByte((byte) 8);
         output.writeUInt32NoTag(retcode);
       }
       if ((bitField0_ & 0x00000004) != 0) {
-        output.writeRawByte((byte) 112);
+        output.writeRawByte((byte) 24);
         output.writeUInt32NoTag(uid);
       }
       if ((bitField0_ & 0x00000008) != 0) {
@@ -421,25 +421,25 @@ public final class PlayerGetTokenScRspOuterClass {
       int tag = input.readTag();
       while (true) {
         switch (tag) {
-          case 16: {
+          case 80: {
             // secretKeySeed
             secretKeySeed = input.readUInt64();
             bitField0_ |= 0x00000001;
             tag = input.readTag();
-            if (tag != 80) {
+            if (tag != 8) {
               break;
             }
           }
-          case 80: {
+          case 8: {
             // retcode
             retcode = input.readUInt32();
             bitField0_ |= 0x00000002;
             tag = input.readTag();
-            if (tag != 112) {
+            if (tag != 24) {
               break;
             }
           }
-          case 112: {
+          case 24: {
             // uid
             uid = input.readUInt32();
             bitField0_ |= 0x00000004;

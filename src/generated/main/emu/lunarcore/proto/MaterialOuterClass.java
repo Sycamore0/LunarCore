@@ -19,12 +19,12 @@ public final class MaterialOuterClass {
     private static final long serialVersionUID = 0L;
 
     /**
-     * <code>optional uint32 num = 6;</code>
+     * <code>optional uint32 num = 4;</code>
      */
     private int num;
 
     /**
-     * <code>optional uint32 tid = 8;</code>
+     * <code>optional uint32 tid = 10;</code>
      */
     private int tid;
 
@@ -39,7 +39,7 @@ public final class MaterialOuterClass {
     }
 
     /**
-     * <code>optional uint32 num = 6;</code>
+     * <code>optional uint32 num = 4;</code>
      * @return whether the num field is set
      */
     public boolean hasNum() {
@@ -47,7 +47,7 @@ public final class MaterialOuterClass {
     }
 
     /**
-     * <code>optional uint32 num = 6;</code>
+     * <code>optional uint32 num = 4;</code>
      * @return this
      */
     public Material clearNum() {
@@ -57,7 +57,7 @@ public final class MaterialOuterClass {
     }
 
     /**
-     * <code>optional uint32 num = 6;</code>
+     * <code>optional uint32 num = 4;</code>
      * @return the num
      */
     public int getNum() {
@@ -65,7 +65,7 @@ public final class MaterialOuterClass {
     }
 
     /**
-     * <code>optional uint32 num = 6;</code>
+     * <code>optional uint32 num = 4;</code>
      * @param value the num to set
      * @return this
      */
@@ -76,7 +76,7 @@ public final class MaterialOuterClass {
     }
 
     /**
-     * <code>optional uint32 tid = 8;</code>
+     * <code>optional uint32 tid = 10;</code>
      * @return whether the tid field is set
      */
     public boolean hasTid() {
@@ -84,7 +84,7 @@ public final class MaterialOuterClass {
     }
 
     /**
-     * <code>optional uint32 tid = 8;</code>
+     * <code>optional uint32 tid = 10;</code>
      * @return this
      */
     public Material clearTid() {
@@ -94,7 +94,7 @@ public final class MaterialOuterClass {
     }
 
     /**
-     * <code>optional uint32 tid = 8;</code>
+     * <code>optional uint32 tid = 10;</code>
      * @return the tid
      */
     public int getTid() {
@@ -102,7 +102,7 @@ public final class MaterialOuterClass {
     }
 
     /**
-     * <code>optional uint32 tid = 8;</code>
+     * <code>optional uint32 tid = 10;</code>
      * @param value the tid to set
      * @return this
      */
@@ -177,11 +177,11 @@ public final class MaterialOuterClass {
     @Override
     public void writeTo(final ProtoSink output) throws IOException {
       if ((bitField0_ & 0x00000001) != 0) {
-        output.writeRawByte((byte) 48);
+        output.writeRawByte((byte) 32);
         output.writeUInt32NoTag(num);
       }
       if ((bitField0_ & 0x00000002) != 0) {
-        output.writeRawByte((byte) 64);
+        output.writeRawByte((byte) 80);
         output.writeUInt32NoTag(tid);
       }
     }
@@ -205,16 +205,16 @@ public final class MaterialOuterClass {
       int tag = input.readTag();
       while (true) {
         switch (tag) {
-          case 48: {
+          case 32: {
             // num
             num = input.readUInt32();
             bitField0_ |= 0x00000001;
             tag = input.readTag();
-            if (tag != 64) {
+            if (tag != 80) {
               break;
             }
           }
-          case 64: {
+          case 80: {
             // tid
             tid = input.readUInt32();
             bitField0_ |= 0x00000002;

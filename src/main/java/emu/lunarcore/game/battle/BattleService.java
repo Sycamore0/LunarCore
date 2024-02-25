@@ -1,6 +1,7 @@
 package emu.lunarcore.game.battle;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -20,10 +21,8 @@ import emu.lunarcore.proto.BattleEndStatusOuterClass.BattleEndStatus;
 import emu.lunarcore.proto.BattleStatisticsOuterClass.BattleStatistics;
 import emu.lunarcore.server.game.BaseGameService;
 import emu.lunarcore.server.game.GameServer;
-import emu.lunarcore.server.packet.send.PacketReEnterLastElementStageScRsp;
-import emu.lunarcore.server.packet.send.PacketSceneCastSkillScRsp;
-import emu.lunarcore.server.packet.send.PacketStartCocoonStageScRsp;
-import emu.lunarcore.server.packet.send.PacketSyncLineupNotify;
+import emu.lunarcore.server.packet.send.*;
+import it.unimi.dsi.fastutil.ints.IntSet;
 
 public class BattleService extends BaseGameService {
 
@@ -31,124 +30,116 @@ public class BattleService extends BaseGameService {
         super(server);
     }
 
-    public void startBattle(Player player, int casterId, int attackedGroupId, MazeSkill castedSkill, Set<Integer> targets) {
+    public void startBattle(Player player, int casterId, int attackedGroupId, MazeSkill castedSkill, IntSet hitTargets, IntSet assistMonsters) {
         // Setup variables
-        List<GameEntity> targetEntities = new ArrayList<>();
-        boolean isPlayerCaster = player.getScene().getAvatarEntityIds().contains(casterId);
+        List<GameEntity> targets = new ArrayList<>();
+        GameAvatar castingAvatar = null;
         
         // Check if attacker is the player or not
-        if (isPlayerCaster) {
-            // Player is the attacker
-            for (int entityId : targets) {
+        if (player.getScene().getAvatarEntityIds().contains(casterId)) {
+            // Get casting avatar
+            castingAvatar = player.getCurrentLeaderAvatar();
+            
+            // Player is the attacker, add hit targets to the battle
+            for (int entityId : hitTargets) {
                 GameEntity entity = player.getScene().getEntities().get(entityId);
                 
                 if (entity != null) {
-                    targetEntities.add(entity);
+                    targets.add(entity);
                 }
             }
         } else {
-            // Player is ambushed
-            GameEntity entity = player.getScene().getEntities().get(casterId);
+            // A monster attacked the player -> Check if player is ambushed first
+            boolean isAmbushed = false;
             
-            if (entity != null) {
-                targetEntities.add(entity);
+            for (int entityId : hitTargets) {
+                if (player.getScene().getAvatarEntityIds().contains(entityId)) {
+                    isAmbushed = true;
+                    break;
+                }
             }
             
-            // Add any assisting monsters from target list
-            for (int entityId : targets) {
-                entity = player.getScene().getEntities().get(entityId);
+            // Start battle if player has been ambushed
+            if (isAmbushed) {
+                GameEntity entity = player.getScene().getEntities().get(casterId);
                 
                 if (entity != null) {
-                    targetEntities.add(entity);
+                    targets.add(entity);
                 }
+            } else {
+                // Skip battle since the monster didnt attack anyone
+                player.sendPacket(new PacketSceneCastSkillScRsp(attackedGroupId));
+                return;
             }
         }
         
-        // Skip if no attacked entities detected
-        if (targetEntities.size() == 0) {
+        // Skip battle if no attacked entities detected
+        if (targets.size() == 0) {
             player.sendPacket(new PacketSceneCastSkillScRsp(attackedGroupId));
             return;
         }
         
         // Separate entities into monster list
-        List<EntityMonster> monsters = new ArrayList<>();
+        Set<EntityMonster> monsters = new HashSet<>();
         
         // Destroy props
-        var it = targetEntities.iterator();
-        while (it.hasNext()) {
+        for (var it = targets.iterator(); it.hasNext();) {
             GameEntity entity = it.next();
             
             if (entity instanceof EntityMonster monster) {
                 monsters.add(monster);
-            } else if (entity instanceof EntityProp) {
+            } else if (entity instanceof EntityProp prop) {
                 it.remove();
-                player.getScene().removeEntity(entity);
+                player.getScene().destroyProp(prop);
+            } else {
+                it.remove();
             }
         }
         
         // Check if we are using a skill that doesnt trigger a battle
         if (castedSkill != null && !castedSkill.isTriggerBattle()) {
             // Apply buffs to monsters
-            castedSkill.onAttack(player.getCurrentLeaderAvatar(), monsters);
+            castedSkill.onCastHit(player.getCurrentLeaderAvatar(), targets);
             // Skip battle if our technique does not trigger a battle
             player.sendPacket(new PacketSceneCastSkillScRsp(attackedGroupId));
             return;
-        } 
-
+        }
+        
+        // Add any assisting monsters from monster assist list
+        for (int entityId : assistMonsters) {
+            GameEntity entity = player.getScene().getEntities().get(entityId);
+            
+            if (entity != null && entity instanceof EntityMonster monster) {
+                monsters.add(monster);
+            }
+        }
+        
         // Start battle
         if (monsters.size() > 0) {
-            // Get stages from monsters
-            List<StageExcel> stages = new ArrayList<>();
-            
-            for (var monster : monsters) {
-                StageExcel stage = GameData.getStageExcelMap().get(monster.getStageId());
-                
-                if (stage != null) {
-                    stages.add(stage);
-                }
+            // Maze skill attack event
+            if (castedSkill != null && castingAvatar != null) {
+                castedSkill.onAttack(castingAvatar, targets);
             }
             
-            if (stages.size() == 0) {
-                // An error has occurred while trying to get stage data
+            // Create battle and add npc monsters to it
+            Battle battle = new Battle(player, player.getLineupManager().getCurrentLineup(), monsters);
+            
+            // Make sure we have at least one stage for the battle
+            if (battle.getStage() == null) {
                 player.sendPacket(new PacketSceneCastSkillScRsp());
                 return;
             }
             
-            // Create battle and add npc monsters to it
-            Battle battle = new Battle(player, player.getLineupManager().getCurrentLineup(), stages);
-            
-            // Add npc monsters
-            for (var monster : monsters) {
-                battle.getNpcMonsters().add(monster);
-                
-                // Handle monster buffs
-                // TODO handle multiple waves properly
-                monster.applyBuffs(battle);
-                
-                // Override level
-                if (monster.getOverrideLevel() > 0) {
-                    battle.setLevelOverride(monster.getOverrideLevel());
-                }
-            }
-            
             // Add buffs to battle
-            if (isPlayerCaster) {
-                GameAvatar avatar = player.getCurrentLeaderAvatar();
-                
-                if (avatar != null) {
-                    // Maze skill attack event
-                    if (castedSkill != null) {
-                        castedSkill.onAttack(avatar, battle);
-                    }
-                    // Add elemental weakness buff to enemies
-                    MazeBuff buff = battle.addBuff(avatar.getExcel().getDamageType().getEnterBattleBuff(), battle.getLineup().getLeader());
-                    if (buff != null) {
-                        buff.addTargetIndex(battle.getLineup().getLeader());
-                        buff.addDynamicValue("SkillIndex", castedSkill.getIndex());
-                    }
+            if (castingAvatar != null) {
+                // Add elemental weakness debuff to enemies
+                MazeBuff buff = battle.addBuff(castingAvatar.getExcel().getDamageType().getEnterBattleBuff(), battle.getLineup().getLeader());
+                if (buff != null) {
+                    buff.addTargetIndex(battle.getLineup().getLeader());
+                    buff.addDynamicValue("SkillIndex", castedSkill.getIndex());
                 }
             } else {
-                // Ambush buff (for monsters)
+                // Ambush debuff (from monsters)
                 battle.addBuff(GameConstants.BATTLE_AMBUSH_BUFF_ID, -1, 1);
             }
             
@@ -170,6 +161,39 @@ public class BattleService extends BaseGameService {
         
         // Send packet
         player.sendPacket(new PacketSceneCastSkillScRsp(attackedGroupId));
+    }
+    
+    public void startBattle(Player player, int stageId) {
+        // Sanity check to make sure player isnt in a battle
+        if (player.isInBattle()) {
+            player.sendPacket(new PacketSceneEnterStageScRsp(player.getBattle()));
+            return;
+        }
+        
+        // Get stage
+        StageExcel stage = GameData.getStageExcelMap().get(stageId);
+        if (stage == null) {
+            player.sendPacket(new PacketSceneCastSkillScRsp());
+            return;
+        }
+        
+        // Create new battle for player
+        Battle battle = new Battle(player, player.getCurrentLineup(), stage);
+
+        // Challenge
+        if (player.getChallengeInstance() != null) {
+            player.getChallengeInstance().onBattleStart(battle);
+        }
+
+        // Rogue
+        if (player.getRogueInstance() != null) {
+            player.getRogueInstance().onBattleStart(battle);
+        }
+        
+        player.setBattle(battle);
+        
+        // Send packet
+        player.sendPacket(new PacketSceneEnterStageScRsp(battle));
     }
     
     public void startCocoon(Player player, int cocoonId, int worldLevel, int wave) {
@@ -213,6 +237,9 @@ public class BattleService extends BaseGameService {
         
         // Build battle from cocoon data
         Battle battle = new Battle(player, player.getLineupManager().getCurrentLineup(), stages);
+        battle.setMappingInfoId(cocoonExcel.getMappingInfoID());
+        battle.setCocoonWave(wave);
+        battle.setWorldLevel(worldLevel);
         battle.setStaminaCost(cost);
         
         player.setBattle(battle);
@@ -229,6 +256,7 @@ public class BattleService extends BaseGameService {
         
         // Get battle object and setup variables
         Battle battle = player.getBattle();
+        battle.setResult(result);
         int minimumHp = 0;
         
         boolean updateStatus = true;
@@ -259,7 +287,7 @@ public class BattleService extends BaseGameService {
             case BATTLE_END_QUIT -> {
                 updateStatus = false;
                 // Only teleport back to anchor if stage is a random fight
-                if (battle.getStageType().getVal() <= StageType.Maze.getVal()) {
+                if (battle.getStage().getStageType() == StageType.Mainline) {
                     teleportToAnchor = true;
                 }
             }
@@ -286,6 +314,9 @@ public class BattleService extends BaseGameService {
 
             // Sync with player
             player.sendPacket(new PacketSyncLineupNotify(battle.getLineup()));
+
+            // Clear food buffs for player
+            player.removeFoodBuffs(1);
         }
         
         // Teleport to anchor if player has lost/retreated. On official servers, the player party is teleported to the nearest anchor.
@@ -302,11 +333,6 @@ public class BattleService extends BaseGameService {
             }
         }
         
-        // Clear food buffs for player
-        if (player.getFoodBuffs().size() > 0) {
-            player.getFoodBuffs().clear();
-        }
-        
         // Challenge
         if (player.getChallengeInstance() != null) {
             player.getChallengeInstance().onBattleFinish(battle, result, stats);
@@ -315,6 +341,11 @@ public class BattleService extends BaseGameService {
         // Rogue
         if (player.getRogueInstance() != null) {
             player.getRogueInstance().onBattleFinish(battle, result, stats);
+        }
+        
+        // Battle callback
+        if (battle.getOnFinish() != null) {
+            battle.getOnFinish().accept(stats);
         }
         
         // Done - Clear battle object from player
@@ -338,7 +369,17 @@ public class BattleService extends BaseGameService {
         
         // Create new battle for player
         Battle battle = new Battle(player, player.getCurrentLineup(), stage);
+        battle.setStaminaCost(GameConstants.FARM_ELEMENT_STAMINA_COST);
         player.setBattle(battle);
+        
+        // Get mapping info id
+        int mappingInfoId = ((stageId / 10) % 100) + 1100;
+        int mappingInfoLevel = stageId % 10;
+        var mappingInfoExcel = GameData.getMappingInfoExcel(mappingInfoId, mappingInfoLevel);
+        if (mappingInfoExcel != null && mappingInfoExcel.getFarmType() != null && mappingInfoExcel.getFarmType().equals("ELEMENT")) {
+            battle.setMappingInfoId(mappingInfoId);
+            battle.setWorldLevel(mappingInfoLevel);
+        }
         
         // Send packet
         player.sendPacket(new PacketReEnterLastElementStageScRsp(battle));

@@ -21,52 +21,52 @@ public final class ClientMailOuterClass {
     private static final long serialVersionUID = 0L;
 
     /**
-     * <code>optional int64 time = 11;</code>
-     */
-    private long time;
-
-    /**
-     * <code>optional int64 expire_time = 12;</code>
+     * <code>optional int64 expire_time = 14;</code>
      */
     private long expireTime;
 
     /**
-     * <code>optional uint32 id = 7;</code>
+     * <code>optional int64 time = 15;</code>
+     */
+    private long time;
+
+    /**
+     * <code>optional uint32 id = 1;</code>
      */
     private int id;
 
     /**
-     * <code>optional uint32 template_id = 8;</code>
+     * <code>optional uint32 template_id = 9;</code>
      */
     private int templateId;
 
     /**
-     * <code>optional bool is_read = 15;</code>
+     * <code>optional bool is_read = 2;</code>
      */
     private boolean isRead;
 
     /**
-     * <code>optional .ItemList attachment = 10;</code>
+     * <code>optional .ItemList attachment = 11;</code>
      */
     private final ItemListOuterClass.ItemList attachment = ItemListOuterClass.ItemList.newInstance();
 
     /**
-     * <code>optional string sender = 2;</code>
+     * <code>optional string sender = 5;</code>
      */
     private final Utf8String sender = Utf8String.newEmptyInstance();
 
     /**
-     * <code>optional string content = 5;</code>
+     * <code>optional string content = 6;</code>
      */
     private final Utf8String content = Utf8String.newEmptyInstance();
 
     /**
-     * <code>optional string title = 9;</code>
+     * <code>optional string title = 7;</code>
      */
     private final Utf8String title = Utf8String.newEmptyInstance();
 
     /**
-     * <code>repeated string para_list = 14;</code>
+     * <code>repeated string para_list = 4;</code>
      */
     private final RepeatedString paraList = RepeatedString.newEmptyInstance();
 
@@ -81,62 +81,25 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional int64 time = 11;</code>
-     * @return whether the time field is set
+     * <code>optional int64 expire_time = 14;</code>
+     * @return whether the expireTime field is set
      */
-    public boolean hasTime() {
+    public boolean hasExpireTime() {
       return (bitField0_ & 0x00000001) != 0;
     }
 
     /**
-     * <code>optional int64 time = 11;</code>
-     * @return this
-     */
-    public ClientMail clearTime() {
-      bitField0_ &= ~0x00000001;
-      time = 0L;
-      return this;
-    }
-
-    /**
-     * <code>optional int64 time = 11;</code>
-     * @return the time
-     */
-    public long getTime() {
-      return time;
-    }
-
-    /**
-     * <code>optional int64 time = 11;</code>
-     * @param value the time to set
-     * @return this
-     */
-    public ClientMail setTime(final long value) {
-      bitField0_ |= 0x00000001;
-      time = value;
-      return this;
-    }
-
-    /**
-     * <code>optional int64 expire_time = 12;</code>
-     * @return whether the expireTime field is set
-     */
-    public boolean hasExpireTime() {
-      return (bitField0_ & 0x00000002) != 0;
-    }
-
-    /**
-     * <code>optional int64 expire_time = 12;</code>
+     * <code>optional int64 expire_time = 14;</code>
      * @return this
      */
     public ClientMail clearExpireTime() {
-      bitField0_ &= ~0x00000002;
+      bitField0_ &= ~0x00000001;
       expireTime = 0L;
       return this;
     }
 
     /**
-     * <code>optional int64 expire_time = 12;</code>
+     * <code>optional int64 expire_time = 14;</code>
      * @return the expireTime
      */
     public long getExpireTime() {
@@ -144,18 +107,55 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional int64 expire_time = 12;</code>
+     * <code>optional int64 expire_time = 14;</code>
      * @param value the expireTime to set
      * @return this
      */
     public ClientMail setExpireTime(final long value) {
-      bitField0_ |= 0x00000002;
+      bitField0_ |= 0x00000001;
       expireTime = value;
       return this;
     }
 
     /**
-     * <code>optional uint32 id = 7;</code>
+     * <code>optional int64 time = 15;</code>
+     * @return whether the time field is set
+     */
+    public boolean hasTime() {
+      return (bitField0_ & 0x00000002) != 0;
+    }
+
+    /**
+     * <code>optional int64 time = 15;</code>
+     * @return this
+     */
+    public ClientMail clearTime() {
+      bitField0_ &= ~0x00000002;
+      time = 0L;
+      return this;
+    }
+
+    /**
+     * <code>optional int64 time = 15;</code>
+     * @return the time
+     */
+    public long getTime() {
+      return time;
+    }
+
+    /**
+     * <code>optional int64 time = 15;</code>
+     * @param value the time to set
+     * @return this
+     */
+    public ClientMail setTime(final long value) {
+      bitField0_ |= 0x00000002;
+      time = value;
+      return this;
+    }
+
+    /**
+     * <code>optional uint32 id = 1;</code>
      * @return whether the id field is set
      */
     public boolean hasId() {
@@ -163,7 +163,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional uint32 id = 7;</code>
+     * <code>optional uint32 id = 1;</code>
      * @return this
      */
     public ClientMail clearId() {
@@ -173,7 +173,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional uint32 id = 7;</code>
+     * <code>optional uint32 id = 1;</code>
      * @return the id
      */
     public int getId() {
@@ -181,7 +181,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional uint32 id = 7;</code>
+     * <code>optional uint32 id = 1;</code>
      * @param value the id to set
      * @return this
      */
@@ -192,7 +192,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional uint32 template_id = 8;</code>
+     * <code>optional uint32 template_id = 9;</code>
      * @return whether the templateId field is set
      */
     public boolean hasTemplateId() {
@@ -200,7 +200,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional uint32 template_id = 8;</code>
+     * <code>optional uint32 template_id = 9;</code>
      * @return this
      */
     public ClientMail clearTemplateId() {
@@ -210,7 +210,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional uint32 template_id = 8;</code>
+     * <code>optional uint32 template_id = 9;</code>
      * @return the templateId
      */
     public int getTemplateId() {
@@ -218,7 +218,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional uint32 template_id = 8;</code>
+     * <code>optional uint32 template_id = 9;</code>
      * @param value the templateId to set
      * @return this
      */
@@ -229,7 +229,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional bool is_read = 15;</code>
+     * <code>optional bool is_read = 2;</code>
      * @return whether the isRead field is set
      */
     public boolean hasIsRead() {
@@ -237,7 +237,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional bool is_read = 15;</code>
+     * <code>optional bool is_read = 2;</code>
      * @return this
      */
     public ClientMail clearIsRead() {
@@ -247,7 +247,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional bool is_read = 15;</code>
+     * <code>optional bool is_read = 2;</code>
      * @return the isRead
      */
     public boolean getIsRead() {
@@ -255,7 +255,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional bool is_read = 15;</code>
+     * <code>optional bool is_read = 2;</code>
      * @param value the isRead to set
      * @return this
      */
@@ -266,7 +266,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional .ItemList attachment = 10;</code>
+     * <code>optional .ItemList attachment = 11;</code>
      * @return whether the attachment field is set
      */
     public boolean hasAttachment() {
@@ -274,7 +274,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional .ItemList attachment = 10;</code>
+     * <code>optional .ItemList attachment = 11;</code>
      * @return this
      */
     public ClientMail clearAttachment() {
@@ -284,7 +284,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional .ItemList attachment = 10;</code>
+     * <code>optional .ItemList attachment = 11;</code>
      *
      * This method returns the internal storage object without modifying any has state.
      * The returned object should not be modified and be treated as read-only.
@@ -298,7 +298,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional .ItemList attachment = 10;</code>
+     * <code>optional .ItemList attachment = 11;</code>
      *
      * This method returns the internal storage object and sets the corresponding
      * has state. The returned object will become part of this message and its
@@ -312,7 +312,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional .ItemList attachment = 10;</code>
+     * <code>optional .ItemList attachment = 11;</code>
      * @param value the attachment to set
      * @return this
      */
@@ -323,7 +323,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string sender = 2;</code>
+     * <code>optional string sender = 5;</code>
      * @return whether the sender field is set
      */
     public boolean hasSender() {
@@ -331,7 +331,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string sender = 2;</code>
+     * <code>optional string sender = 5;</code>
      * @return this
      */
     public ClientMail clearSender() {
@@ -341,7 +341,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string sender = 2;</code>
+     * <code>optional string sender = 5;</code>
      * @return the sender
      */
     public String getSender() {
@@ -349,7 +349,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string sender = 2;</code>
+     * <code>optional string sender = 5;</code>
      * @return internal {@code Utf8String} representation of sender for reading
      */
     public Utf8String getSenderBytes() {
@@ -357,7 +357,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string sender = 2;</code>
+     * <code>optional string sender = 5;</code>
      * @return internal {@code Utf8String} representation of sender for modifications
      */
     public Utf8String getMutableSenderBytes() {
@@ -366,7 +366,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string sender = 2;</code>
+     * <code>optional string sender = 5;</code>
      * @param value the sender to set
      * @return this
      */
@@ -377,7 +377,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string sender = 2;</code>
+     * <code>optional string sender = 5;</code>
      * @param value the sender to set
      * @return this
      */
@@ -388,7 +388,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string content = 5;</code>
+     * <code>optional string content = 6;</code>
      * @return whether the content field is set
      */
     public boolean hasContent() {
@@ -396,7 +396,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string content = 5;</code>
+     * <code>optional string content = 6;</code>
      * @return this
      */
     public ClientMail clearContent() {
@@ -406,7 +406,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string content = 5;</code>
+     * <code>optional string content = 6;</code>
      * @return the content
      */
     public String getContent() {
@@ -414,7 +414,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string content = 5;</code>
+     * <code>optional string content = 6;</code>
      * @return internal {@code Utf8String} representation of content for reading
      */
     public Utf8String getContentBytes() {
@@ -422,7 +422,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string content = 5;</code>
+     * <code>optional string content = 6;</code>
      * @return internal {@code Utf8String} representation of content for modifications
      */
     public Utf8String getMutableContentBytes() {
@@ -431,7 +431,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string content = 5;</code>
+     * <code>optional string content = 6;</code>
      * @param value the content to set
      * @return this
      */
@@ -442,7 +442,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string content = 5;</code>
+     * <code>optional string content = 6;</code>
      * @param value the content to set
      * @return this
      */
@@ -453,7 +453,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string title = 9;</code>
+     * <code>optional string title = 7;</code>
      * @return whether the title field is set
      */
     public boolean hasTitle() {
@@ -461,7 +461,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string title = 9;</code>
+     * <code>optional string title = 7;</code>
      * @return this
      */
     public ClientMail clearTitle() {
@@ -471,7 +471,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string title = 9;</code>
+     * <code>optional string title = 7;</code>
      * @return the title
      */
     public String getTitle() {
@@ -479,7 +479,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string title = 9;</code>
+     * <code>optional string title = 7;</code>
      * @return internal {@code Utf8String} representation of title for reading
      */
     public Utf8String getTitleBytes() {
@@ -487,7 +487,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string title = 9;</code>
+     * <code>optional string title = 7;</code>
      * @return internal {@code Utf8String} representation of title for modifications
      */
     public Utf8String getMutableTitleBytes() {
@@ -496,7 +496,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string title = 9;</code>
+     * <code>optional string title = 7;</code>
      * @param value the title to set
      * @return this
      */
@@ -507,7 +507,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>optional string title = 9;</code>
+     * <code>optional string title = 7;</code>
      * @param value the title to set
      * @return this
      */
@@ -518,7 +518,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>repeated string para_list = 14;</code>
+     * <code>repeated string para_list = 4;</code>
      * @return whether the paraList field is set
      */
     public boolean hasParaList() {
@@ -526,7 +526,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>repeated string para_list = 14;</code>
+     * <code>repeated string para_list = 4;</code>
      * @return this
      */
     public ClientMail clearParaList() {
@@ -536,7 +536,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>repeated string para_list = 14;</code>
+     * <code>repeated string para_list = 4;</code>
      *
      * This method returns the internal storage object without modifying any has state.
      * The returned object should not be modified and be treated as read-only.
@@ -550,7 +550,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>repeated string para_list = 14;</code>
+     * <code>repeated string para_list = 4;</code>
      *
      * This method returns the internal storage object and sets the corresponding
      * has state. The returned object will become part of this message and its
@@ -564,7 +564,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>repeated string para_list = 14;</code>
+     * <code>repeated string para_list = 4;</code>
      * @param value the paraList to add
      * @return this
      */
@@ -575,7 +575,7 @@ public final class ClientMailOuterClass {
     }
 
     /**
-     * <code>repeated string para_list = 14;</code>
+     * <code>repeated string para_list = 4;</code>
      * @param values the paraList to add
      * @return this
      */
@@ -590,8 +590,8 @@ public final class ClientMailOuterClass {
       cachedSize = other.cachedSize;
       if ((bitField0_ | other.bitField0_) != 0) {
         bitField0_ = other.bitField0_;
-        time = other.time;
         expireTime = other.expireTime;
+        time = other.time;
         id = other.id;
         templateId = other.templateId;
         isRead = other.isRead;
@@ -610,11 +610,11 @@ public final class ClientMailOuterClass {
         return this;
       }
       cachedSize = -1;
-      if (other.hasTime()) {
-        setTime(other.time);
-      }
       if (other.hasExpireTime()) {
         setExpireTime(other.expireTime);
+      }
+      if (other.hasTime()) {
+        setTime(other.time);
       }
       if (other.hasId()) {
         setId(other.id);
@@ -650,8 +650,8 @@ public final class ClientMailOuterClass {
       }
       cachedSize = -1;
       bitField0_ = 0;
-      time = 0L;
       expireTime = 0L;
+      time = 0L;
       id = 0;
       templateId = 0;
       isRead = false;
@@ -688,8 +688,8 @@ public final class ClientMailOuterClass {
       }
       ClientMail other = (ClientMail) o;
       return bitField0_ == other.bitField0_
-        && (!hasTime() || time == other.time)
         && (!hasExpireTime() || expireTime == other.expireTime)
+        && (!hasTime() || time == other.time)
         && (!hasId() || id == other.id)
         && (!hasTemplateId() || templateId == other.templateId)
         && (!hasIsRead() || isRead == other.isRead)
@@ -703,44 +703,44 @@ public final class ClientMailOuterClass {
     @Override
     public void writeTo(final ProtoSink output) throws IOException {
       if ((bitField0_ & 0x00000001) != 0) {
-        output.writeRawByte((byte) 88);
-        output.writeInt64NoTag(time);
-      }
-      if ((bitField0_ & 0x00000002) != 0) {
-        output.writeRawByte((byte) 96);
+        output.writeRawByte((byte) 112);
         output.writeInt64NoTag(expireTime);
       }
+      if ((bitField0_ & 0x00000002) != 0) {
+        output.writeRawByte((byte) 120);
+        output.writeInt64NoTag(time);
+      }
       if ((bitField0_ & 0x00000004) != 0) {
-        output.writeRawByte((byte) 56);
+        output.writeRawByte((byte) 8);
         output.writeUInt32NoTag(id);
       }
       if ((bitField0_ & 0x00000008) != 0) {
-        output.writeRawByte((byte) 64);
+        output.writeRawByte((byte) 72);
         output.writeUInt32NoTag(templateId);
       }
       if ((bitField0_ & 0x00000010) != 0) {
-        output.writeRawByte((byte) 120);
+        output.writeRawByte((byte) 16);
         output.writeBoolNoTag(isRead);
       }
       if ((bitField0_ & 0x00000020) != 0) {
-        output.writeRawByte((byte) 82);
+        output.writeRawByte((byte) 90);
         output.writeMessageNoTag(attachment);
       }
       if ((bitField0_ & 0x00000040) != 0) {
-        output.writeRawByte((byte) 18);
+        output.writeRawByte((byte) 42);
         output.writeStringNoTag(sender);
       }
       if ((bitField0_ & 0x00000080) != 0) {
-        output.writeRawByte((byte) 42);
+        output.writeRawByte((byte) 50);
         output.writeStringNoTag(content);
       }
       if ((bitField0_ & 0x00000100) != 0) {
-        output.writeRawByte((byte) 74);
+        output.writeRawByte((byte) 58);
         output.writeStringNoTag(title);
       }
       if ((bitField0_ & 0x00000200) != 0) {
         for (int i = 0; i < paraList.length(); i++) {
-          output.writeRawByte((byte) 114);
+          output.writeRawByte((byte) 34);
           output.writeStringNoTag(paraList.get(i));
         }
       }
@@ -750,10 +750,10 @@ public final class ClientMailOuterClass {
     protected int computeSerializedSize() {
       int size = 0;
       if ((bitField0_ & 0x00000001) != 0) {
-        size += 1 + ProtoSink.computeInt64SizeNoTag(time);
+        size += 1 + ProtoSink.computeInt64SizeNoTag(expireTime);
       }
       if ((bitField0_ & 0x00000002) != 0) {
-        size += 1 + ProtoSink.computeInt64SizeNoTag(expireTime);
+        size += 1 + ProtoSink.computeInt64SizeNoTag(time);
       }
       if ((bitField0_ & 0x00000004) != 0) {
         size += 1 + ProtoSink.computeUInt32SizeNoTag(id);
@@ -789,88 +789,88 @@ public final class ClientMailOuterClass {
       int tag = input.readTag();
       while (true) {
         switch (tag) {
-          case 88: {
-            // time
-            time = input.readInt64();
-            bitField0_ |= 0x00000001;
-            tag = input.readTag();
-            if (tag != 96) {
-              break;
-            }
-          }
-          case 96: {
+          case 112: {
             // expireTime
             expireTime = input.readInt64();
-            bitField0_ |= 0x00000002;
-            tag = input.readTag();
-            if (tag != 56) {
-              break;
-            }
-          }
-          case 56: {
-            // id
-            id = input.readUInt32();
-            bitField0_ |= 0x00000004;
-            tag = input.readTag();
-            if (tag != 64) {
-              break;
-            }
-          }
-          case 64: {
-            // templateId
-            templateId = input.readUInt32();
-            bitField0_ |= 0x00000008;
+            bitField0_ |= 0x00000001;
             tag = input.readTag();
             if (tag != 120) {
               break;
             }
           }
           case 120: {
+            // time
+            time = input.readInt64();
+            bitField0_ |= 0x00000002;
+            tag = input.readTag();
+            if (tag != 8) {
+              break;
+            }
+          }
+          case 8: {
+            // id
+            id = input.readUInt32();
+            bitField0_ |= 0x00000004;
+            tag = input.readTag();
+            if (tag != 72) {
+              break;
+            }
+          }
+          case 72: {
+            // templateId
+            templateId = input.readUInt32();
+            bitField0_ |= 0x00000008;
+            tag = input.readTag();
+            if (tag != 16) {
+              break;
+            }
+          }
+          case 16: {
             // isRead
             isRead = input.readBool();
             bitField0_ |= 0x00000010;
             tag = input.readTag();
-            if (tag != 82) {
+            if (tag != 90) {
               break;
             }
           }
-          case 82: {
+          case 90: {
             // attachment
             input.readMessage(attachment);
             bitField0_ |= 0x00000020;
-            tag = input.readTag();
-            if (tag != 18) {
-              break;
-            }
-          }
-          case 18: {
-            // sender
-            input.readString(sender);
-            bitField0_ |= 0x00000040;
             tag = input.readTag();
             if (tag != 42) {
               break;
             }
           }
           case 42: {
+            // sender
+            input.readString(sender);
+            bitField0_ |= 0x00000040;
+            tag = input.readTag();
+            if (tag != 50) {
+              break;
+            }
+          }
+          case 50: {
             // content
             input.readString(content);
             bitField0_ |= 0x00000080;
             tag = input.readTag();
-            if (tag != 74) {
+            if (tag != 58) {
               break;
             }
           }
-          case 74: {
+          case 58: {
             // title
             input.readString(title);
             bitField0_ |= 0x00000100;
             tag = input.readTag();
-            if (tag != 114) {
+            if (tag != 34) {
               break;
             }
           }
-          case 114: {
+          case 34: {
             // paraList
             tag = input.readRepeatedString(paraList, tag);
             bitField0_ |= 0x00000200;
@@ -896,10 +896,10 @@ public final class ClientMailOuterClass {
     public void writeTo(final JsonSink output) throws IOException {
       output.beginObject();
       if ((bitField0_ & 0x00000001) != 0) {
-        output.writeInt64(FieldNames.time, time);
+        output.writeInt64(FieldNames.expireTime, expireTime);
       }
       if ((bitField0_ & 0x00000002) != 0) {
-        output.writeInt64(FieldNames.expireTime, expireTime);
+        output.writeInt64(FieldNames.time, time);
       }
       if ((bitField0_ & 0x00000004) != 0) {
         output.writeUInt32(FieldNames.id, id);
@@ -935,10 +935,11 @@ public final class ClientMailOuterClass {
       }
       while (!input.isAtEnd()) {
         switch (input.readFieldHash()) {
-          case 3560141: {
-            if (input.isAtField(FieldNames.time)) {
+          case -834724724:
+          case -96179731: {
+            if (input.isAtField(FieldNames.expireTime)) {
               if (!input.trySkipNullValue()) {
-                time = input.readInt64();
+                expireTime = input.readInt64();
                 bitField0_ |= 0x00000001;
               }
             } else {
@@ -946,11 +947,10 @@ public final class ClientMailOuterClass {
             }
             break;
           }
-          case -834724724:
-          case -96179731: {
-            if (input.isAtField(FieldNames.expireTime)) {
+          case 3560141: {
+            if (input.isAtField(FieldNames.time)) {
               if (!input.trySkipNullValue()) {
-                expireTime = input.readInt64();
+                time = input.readInt64();
                 bitField0_ |= 0x00000002;
               }
             } else {
@@ -1101,9 +1101,9 @@ public final class ClientMailOuterClass {
      * Contains name constants used for serializing JSON
      */
     static class FieldNames {
-      static final FieldName time = FieldName.forField("time");
-
       static final FieldName expireTime = FieldName.forField("expireTime", "expire_time");
+
+      static final FieldName time = FieldName.forField("time");
 
       static final FieldName id = FieldName.forField("id");
 

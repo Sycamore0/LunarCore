@@ -1,14 +1,16 @@
 package emu.lunarcore;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
+
+import com.google.gson.annotations.SerializedName;
 
 import emu.lunarcore.data.common.ItemParam;
 import lombok.Getter;
 
 @Getter
 public class Config {
-
     public DatabaseInfo accountDatabase = new DatabaseInfo();
     public DatabaseInfo gameDatabase = new DatabaseInfo();
     public InternalMongoInfo internalMongoServer = new InternalMongoInfo();
@@ -20,6 +22,8 @@ public class Config {
     public GameServerConfig gameServer = new GameServerConfig(23301);
     
     public ServerOptions serverOptions = new ServerOptions();
+    public ServerTime serverTime = new ServerTime();
+    public ServerRates serverRates = new ServerRates();
     public LogOptions logOptions = new LogOptions();
     public DownloadData downloadData = new DownloadData();
 
@@ -49,11 +53,32 @@ public class Config {
     @Getter
     private static class ServerConfig {
         public String bindAddress = "0.0.0.0";
+        @SerializedName(value = "bindPort", alternate = {"port"})
+        public int bindPort;
+        
+        // Will return bindAddress if publicAddress is null
         public String publicAddress = "127.0.0.1";
-        public int port;
-
+        // Will return bindPort if publicPort is null
+        public Integer publicPort;
+        
         public ServerConfig(int port) {
-            this.port = port;
+            this.bindPort = port;
+        }
+        
+        public String getPublicAddress() {
+            if (this.publicAddress != null && !this.publicAddress.isEmpty()) {
+                return this.publicAddress;
+            }
+            
+            return this.bindAddress;
+        }
+        
+        public int getPublicPort() {
+            if (this.publicPort != null && this.publicPort != 0) {
+                return this.publicPort;
+            }
+            
+            return this.bindPort;
         }
     }
     
@@ -67,15 +92,15 @@ public class Config {
         }
         
         public String getDisplayAddress() {
-            return (useSSL ? "https" : "http") + "://" + publicAddress + ":" + port;
+            return (useSSL ? "https" : "http") + "://" + getPublicAddress() + ":" + getPublicPort();
         }
     }
 
     @Getter
     public static class GameServerConfig extends ServerConfig {
         public String id = "lunar_rail_test";
-        public String name = "Test";
-        public String description = "Test Server";
+        public String name = "Lunar Core";
+        public String description = "A LunarCore server";
         public int kcpInterval = 40;
 
         public GameServerConfig(int port) {
@@ -83,14 +108,23 @@ public class Config {
         }
     }
     
+    @Getter 
+    public static class ServerTime {
+        public boolean spoofTime = false;
+        public Date spoofDate = new Date(1705276800000L); // January 15, 2024 12:00:00 AM (GMT)
+    }
+    
     @Getter
     public static class ServerOptions {
         public boolean autoCreateAccount = true;
         public int sceneMaxEntites = 500;
-        public boolean spendStamina = true;
+        public int maxCustomRelicLevel = 15; // Maximum level of a relic that the player can create with the /give command
         public boolean unlockAllChallenges = true;
+        public boolean spendStamina = true;
         public int staminaRecoveryRate = 5 * 60;
         public int staminaReserveRecoveryRate = 18 * 60;
+        public int startTrailblazerLevel = 1; // Starting trailblazer level for new players
+        public boolean autoUpgradeWorldLevel = true; // Automatically upgrades world level when the player reaches a certain TB level
         public String language = "EN";
         public Set<String> defaultPermissions = Set.of("*");
         
@@ -104,6 +138,15 @@ public class Config {
         public int getStaminaReserveRecoveryRate() {
             return staminaReserveRecoveryRate > 0 ? staminaReserveRecoveryRate : 1;
         }
+    }
+    
+    @Getter
+    public static class ServerRates {
+        public double exp = 1.0;
+        public double credit = 1.0;
+        public double jade = 1.0;
+        public double material = 1.0;
+        public double equip = 1.0;
     }
     
     @Getter

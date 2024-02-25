@@ -20,22 +20,22 @@ public final class GetPrivateChatHistoryScRspOuterClass {
     private static final long serialVersionUID = 0L;
 
     /**
-     * <code>optional uint32 to_uid = 2;</code>
+     * <code>optional uint32 to_uid = 8;</code>
      */
     private int toUid;
 
     /**
-     * <code>optional uint32 retcode = 5;</code>
+     * <code>optional uint32 retcode = 10;</code>
      */
     private int retcode;
 
     /**
-     * <code>optional uint32 sender_uid = 15;</code>
+     * <code>optional uint32 sender_uid = 13;</code>
      */
     private int senderUid;
 
     /**
-     * <code>repeated .Chat chat_list = 6;</code>
+     * <code>repeated .Chat chat_list = 5;</code>
      */
     private final RepeatedMessage<ChatOuterClass.Chat> chatList = RepeatedMessage.newEmptyInstance(ChatOuterClass.Chat.getFactory());
 
@@ -50,7 +50,7 @@ public final class GetPrivateChatHistoryScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 to_uid = 2;</code>
+     * <code>optional uint32 to_uid = 8;</code>
      * @return whether the toUid field is set
      */
     public boolean hasToUid() {
@@ -58,7 +58,7 @@ public final class GetPrivateChatHistoryScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 to_uid = 2;</code>
+     * <code>optional uint32 to_uid = 8;</code>
      * @return this
      */
     public GetPrivateChatHistoryScRsp clearToUid() {
@@ -68,7 +68,7 @@ public final class GetPrivateChatHistoryScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 to_uid = 2;</code>
+     * <code>optional uint32 to_uid = 8;</code>
      * @return the toUid
      */
     public int getToUid() {
@@ -76,7 +76,7 @@ public final class GetPrivateChatHistoryScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 to_uid = 2;</code>
+     * <code>optional uint32 to_uid = 8;</code>
      * @param value the toUid to set
      * @return this
      */
@@ -87,7 +87,7 @@ public final class GetPrivateChatHistoryScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 retcode = 5;</code>
+     * <code>optional uint32 retcode = 10;</code>
      * @return whether the retcode field is set
      */
     public boolean hasRetcode() {
@@ -95,7 +95,7 @@ public final class GetPrivateChatHistoryScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 retcode = 5;</code>
+     * <code>optional uint32 retcode = 10;</code>
      * @return this
      */
     public GetPrivateChatHistoryScRsp clearRetcode() {
@@ -105,7 +105,7 @@ public final class GetPrivateChatHistoryScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 retcode = 5;</code>
+     * <code>optional uint32 retcode = 10;</code>
      * @return the retcode
      */
     public int getRetcode() {
@@ -113,7 +113,7 @@ public final class GetPrivateChatHistoryScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 retcode = 5;</code>
+     * <code>optional uint32 retcode = 10;</code>
      * @param value the retcode to set
      * @return this
      */
@@ -124,7 +124,7 @@ public final class GetPrivateChatHistoryScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 sender_uid = 15;</code>
+     * <code>optional uint32 sender_uid = 13;</code>
      * @return whether the senderUid field is set
      */
     public boolean hasSenderUid() {
@@ -132,7 +132,7 @@ public final class GetPrivateChatHistoryScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 sender_uid = 15;</code>
+     * <code>optional uint32 sender_uid = 13;</code>
      * @return this
      */
     public GetPrivateChatHistoryScRsp clearSenderUid() {
@@ -142,7 +142,7 @@ public final class GetPrivateChatHistoryScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 sender_uid = 15;</code>
+     * <code>optional uint32 sender_uid = 13;</code>
      * @return the senderUid
      */
     public int getSenderUid() {
@@ -150,7 +150,7 @@ public final class GetPrivateChatHistoryScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 sender_uid = 15;</code>
+     * <code>optional uint32 sender_uid = 13;</code>
      * @param value the senderUid to set
      * @return this
      */
@@ -161,7 +161,7 @@ public final class GetPrivateChatHistoryScRspOuterClass {
     }
 
     /**
-     * <code>repeated .Chat chat_list = 6;</code>
+     * <code>repeated .Chat chat_list = 5;</code>
      * @return whether the chatList field is set
      */
     public boolean hasChatList() {
@@ -169,7 +169,7 @@ public final class GetPrivateChatHistoryScRspOuterClass {
     }
 
     /**
-     * <code>repeated .Chat chat_list = 6;</code>
+     * <code>repeated .Chat chat_list = 5;</code>
      * @return this
      */
     public GetPrivateChatHistoryScRsp clearChatList() {
@@ -179,7 +179,7 @@ public final class GetPrivateChatHistoryScRspOuterClass {
     }
 
     /**
-     * <code>repeated .Chat chat_list = 6;</code>
+     * <code>repeated .Chat chat_list = 5;</code>
      *
      * This method returns the internal storage object without modifying any has state.
      * The returned object should not be modified and be treated as read-only.
@@ -193,7 +193,7 @@ public final class GetPrivateChatHistoryScRspOuterClass {
     }
 
     /**
-     * <code>repeated .Chat chat_list = 6;</code>
+     * <code>repeated .Chat chat_list = 5;</code>
      *
      * This method returns the internal storage object and sets the corresponding
      * has state. The returned object will become part of this message and its
@@ -207,7 +207,7 @@ public final class GetPrivateChatHistoryScRspOuterClass {
     }
 
     /**
-     * <code>repeated .Chat chat_list = 6;</code>
+     * <code>repeated .Chat chat_list = 5;</code>
      * @param value the chatList to add
      * @return this
      */
@@ -218,7 +218,7 @@ public final class GetPrivateChatHistoryScRspOuterClass {
     }
 
     /**
-     * <code>repeated .Chat chat_list = 6;</code>
+     * <code>repeated .Chat chat_list = 5;</code>
      * @param values the chatList to add
      * @return this
      */
@@ -306,20 +306,20 @@ public final class GetPrivateChatHistoryScRspOuterClass {
     @Override
     public void writeTo(final ProtoSink output) throws IOException {
       if ((bitField0_ & 0x00000001) != 0) {
-        output.writeRawByte((byte) 16);
+        output.writeRawByte((byte) 64);
         output.writeUInt32NoTag(toUid);
       }
       if ((bitField0_ & 0x00000002) != 0) {
-        output.writeRawByte((byte) 40);
+        output.writeRawByte((byte) 80);
         output.writeUInt32NoTag(retcode);
       }
       if ((bitField0_ & 0x00000004) != 0) {
-        output.writeRawByte((byte) 120);
+        output.writeRawByte((byte) 104);
         output.writeUInt32NoTag(senderUid);
       }
       if ((bitField0_ & 0x00000008) != 0) {
         for (int i = 0; i < chatList.length(); i++) {
-          output.writeRawByte((byte) 50);
+          output.writeRawByte((byte) 42);
           output.writeMessageNoTag(chatList.get(i));
         }
       }
@@ -350,34 +350,34 @@ public final class GetPrivateChatHistoryScRspOuterClass {
       int tag = input.readTag();
       while (true) {
         switch (tag) {
-          case 16: {
+          case 64: {
             // toUid
             toUid = input.readUInt32();
             bitField0_ |= 0x00000001;
             tag = input.readTag();
-            if (tag != 40) {
+            if (tag != 80) {
               break;
             }
           }
-          case 40: {
+          case 80: {
             // retcode
             retcode = input.readUInt32();
             bitField0_ |= 0x00000002;
             tag = input.readTag();
-            if (tag != 120) {
+            if (tag != 104) {
               break;
             }
           }
-          case 120: {
+          case 104: {
             // senderUid
             senderUid = input.readUInt32();
             bitField0_ |= 0x00000004;
             tag = input.readTag();
-            if (tag != 50) {
+            if (tag != 42) {
               break;
             }
           }
-          case 50: {
+          case 42: {
             // chatList
             tag = input.readRepeatedMessage(chatList, tag);
             bitField0_ |= 0x00000008;

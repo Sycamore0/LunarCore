@@ -10,7 +10,6 @@ import us.hebi.quickbuf.MessageFactory;
 import us.hebi.quickbuf.ProtoMessage;
 import us.hebi.quickbuf.ProtoSink;
 import us.hebi.quickbuf.ProtoSource;
-import us.hebi.quickbuf.RepeatedInt;
 import us.hebi.quickbuf.RepeatedMessage;
 
 public final class SearchPlayerScRspOuterClass {
@@ -24,11 +23,6 @@ public final class SearchPlayerScRspOuterClass {
      * <code>optional uint32 retcode = 1;</code>
      */
     private int retcode;
-
-    /**
-     * <code>repeated uint32 HBCDGNCPNGB = 5;</code>
-     */
-    private final RepeatedInt hBCDGNCPNGB = RepeatedInt.newEmptyInstance();
 
     /**
      * <code>repeated .SimpleInfo search_result_list = 15;</code>
@@ -83,79 +77,11 @@ public final class SearchPlayerScRspOuterClass {
     }
 
     /**
-     * <code>repeated uint32 HBCDGNCPNGB = 5;</code>
-     * @return whether the hBCDGNCPNGB field is set
-     */
-    public boolean hasHBCDGNCPNGB() {
-      return (bitField0_ & 0x00000002) != 0;
-    }
-
-    /**
-     * <code>repeated uint32 HBCDGNCPNGB = 5;</code>
-     * @return this
-     */
-    public SearchPlayerScRsp clearHBCDGNCPNGB() {
-      bitField0_ &= ~0x00000002;
-      hBCDGNCPNGB.clear();
-      return this;
-    }
-
-    /**
-     * <code>repeated uint32 HBCDGNCPNGB = 5;</code>
-     *
-     * This method returns the internal storage object without modifying any has state.
-     * The returned object should not be modified and be treated as read-only.
-     *
-     * Use {@link #getMutableHBCDGNCPNGB()} if you want to modify it.
-     *
-     * @return internal storage object for reading
-     */
-    public RepeatedInt getHBCDGNCPNGB() {
-      return hBCDGNCPNGB;
-    }
-
-    /**
-     * <code>repeated uint32 HBCDGNCPNGB = 5;</code>
-     *
-     * This method returns the internal storage object and sets the corresponding
-     * has state. The returned object will become part of this message and its
-     * contents may be modified as long as the has state is not cleared.
-     *
-     * @return internal storage object for modifications
-     */
-    public RepeatedInt getMutableHBCDGNCPNGB() {
-      bitField0_ |= 0x00000002;
-      return hBCDGNCPNGB;
-    }
-
-    /**
-     * <code>repeated uint32 HBCDGNCPNGB = 5;</code>
-     * @param value the hBCDGNCPNGB to add
-     * @return this
-     */
-    public SearchPlayerScRsp addHBCDGNCPNGB(final int value) {
-      bitField0_ |= 0x00000002;
-      hBCDGNCPNGB.add(value);
-      return this;
-    }
-
-    /**
-     * <code>repeated uint32 HBCDGNCPNGB = 5;</code>
-     * @param values the hBCDGNCPNGB to add
-     * @return this
-     */
-    public SearchPlayerScRsp addAllHBCDGNCPNGB(final int... values) {
-      bitField0_ |= 0x00000002;
-      hBCDGNCPNGB.addAll(values);
-      return this;
-    }
-
-    /**
      * <code>repeated .SimpleInfo search_result_list = 15;</code>
      * @return whether the searchResultList field is set
      */
     public boolean hasSearchResultList() {
-      return (bitField0_ & 0x00000004) != 0;
+      return (bitField0_ & 0x00000002) != 0;
     }
 
     /**
@@ -163,7 +89,7 @@ public final class SearchPlayerScRspOuterClass {
      * @return this
      */
     public SearchPlayerScRsp clearSearchResultList() {
-      bitField0_ &= ~0x00000004;
+      bitField0_ &= ~0x00000002;
       searchResultList.clear();
       return this;
     }
@@ -192,7 +118,7 @@ public final class SearchPlayerScRspOuterClass {
      * @return internal storage object for modifications
      */
     public RepeatedMessage<SimpleInfoOuterClass.SimpleInfo> getMutableSearchResultList() {
-      bitField0_ |= 0x00000004;
+      bitField0_ |= 0x00000002;
       return searchResultList;
     }
 
@@ -202,7 +128,7 @@ public final class SearchPlayerScRspOuterClass {
      * @return this
      */
     public SearchPlayerScRsp addSearchResultList(final SimpleInfoOuterClass.SimpleInfo value) {
-      bitField0_ |= 0x00000004;
+      bitField0_ |= 0x00000002;
       searchResultList.add(value);
       return this;
     }
@@ -214,7 +140,7 @@ public final class SearchPlayerScRspOuterClass {
      */
     public SearchPlayerScRsp addAllSearchResultList(
         final SimpleInfoOuterClass.SimpleInfo... values) {
-      bitField0_ |= 0x00000004;
+      bitField0_ |= 0x00000002;
       searchResultList.addAll(values);
       return this;
     }
@@ -225,7 +151,6 @@ public final class SearchPlayerScRspOuterClass {
       if ((bitField0_ | other.bitField0_) != 0) {
         bitField0_ = other.bitField0_;
         retcode = other.retcode;
-        hBCDGNCPNGB.copyFrom(other.hBCDGNCPNGB);
         searchResultList.copyFrom(other.searchResultList);
       }
       return this;
@@ -239,9 +164,6 @@ public final class SearchPlayerScRspOuterClass {
       cachedSize = -1;
       if (other.hasRetcode()) {
         setRetcode(other.retcode);
-      }
-      if (other.hasHBCDGNCPNGB()) {
-        getMutableHBCDGNCPNGB().addAll(other.hBCDGNCPNGB);
       }
       if (other.hasSearchResultList()) {
         getMutableSearchResultList().addAll(other.searchResultList);
@@ -257,7 +179,6 @@ public final class SearchPlayerScRspOuterClass {
       cachedSize = -1;
       bitField0_ = 0;
       retcode = 0;
-      hBCDGNCPNGB.clear();
       searchResultList.clear();
       return this;
     }
@@ -269,7 +190,6 @@ public final class SearchPlayerScRspOuterClass {
       }
       cachedSize = -1;
       bitField0_ = 0;
-      hBCDGNCPNGB.clear();
       searchResultList.clearQuick();
       return this;
     }
@@ -285,7 +205,6 @@ public final class SearchPlayerScRspOuterClass {
       SearchPlayerScRsp other = (SearchPlayerScRsp) o;
       return bitField0_ == other.bitField0_
         && (!hasRetcode() || retcode == other.retcode)
-        && (!hasHBCDGNCPNGB() || hBCDGNCPNGB.equals(other.hBCDGNCPNGB))
         && (!hasSearchResultList() || searchResultList.equals(other.searchResultList));
     }
 
@@ -296,12 +215,6 @@ public final class SearchPlayerScRspOuterClass {
         output.writeUInt32NoTag(retcode);
       }
       if ((bitField0_ & 0x00000002) != 0) {
-        for (int i = 0; i < hBCDGNCPNGB.length(); i++) {
-          output.writeRawByte((byte) 40);
-          output.writeUInt32NoTag(hBCDGNCPNGB.array()[i]);
-        }
-      }
-      if ((bitField0_ & 0x00000004) != 0) {
         for (int i = 0; i < searchResultList.length(); i++) {
           output.writeRawByte((byte) 122);
           output.writeMessageNoTag(searchResultList.get(i));
@@ -316,9 +229,6 @@ public final class SearchPlayerScRspOuterClass {
         size += 1 + ProtoSink.computeUInt32SizeNoTag(retcode);
       }
       if ((bitField0_ & 0x00000002) != 0) {
-        size += (1 * hBCDGNCPNGB.length()) + ProtoSink.computeRepeatedUInt32SizeNoTag(hBCDGNCPNGB);
-      }
-      if ((bitField0_ & 0x00000004) != 0) {
         size += (1 * searchResultList.length()) + ProtoSink.computeRepeatedMessageSizeNoTag(searchResultList);
       }
       return size;
@@ -336,15 +246,6 @@ public final class SearchPlayerScRspOuterClass {
             retcode = input.readUInt32();
             bitField0_ |= 0x00000001;
             tag = input.readTag();
-            if (tag != 42) {
-              break;
-            }
-          }
-          case 42: {
-            // hBCDGNCPNGB [packed=true]
-            input.readPackedUInt32(hBCDGNCPNGB, tag);
-            bitField0_ |= 0x00000002;
-            tag = input.readTag();
             if (tag != 122) {
               break;
             }
@@ -352,7 +253,7 @@ public final class SearchPlayerScRspOuterClass {
           case 122: {
             // searchResultList
             tag = input.readRepeatedMessage(searchResultList, tag);
-            bitField0_ |= 0x00000004;
+            bitField0_ |= 0x00000002;
             if (tag != 0) {
               break;
             }
@@ -367,12 +268,6 @@ public final class SearchPlayerScRspOuterClass {
             tag = input.readTag();
             break;
           }
-          case 40: {
-            // hBCDGNCPNGB [packed=false]
-            tag = input.readRepeatedUInt32(hBCDGNCPNGB, tag);
-            bitField0_ |= 0x00000002;
-            break;
-          }
         }
       }
     }
@@ -384,9 +279,6 @@ public final class SearchPlayerScRspOuterClass {
         output.writeUInt32(FieldNames.retcode, retcode);
       }
       if ((bitField0_ & 0x00000002) != 0) {
-        output.writeRepeatedUInt32(FieldNames.hBCDGNCPNGB, hBCDGNCPNGB);
-      }
-      if ((bitField0_ & 0x00000004) != 0) {
         output.writeRepeatedMessage(FieldNames.searchResultList, searchResultList);
       }
       output.endObject();
@@ -410,23 +302,12 @@ public final class SearchPlayerScRspOuterClass {
             }
             break;
           }
-          case 1975814746: {
-            if (input.isAtField(FieldNames.hBCDGNCPNGB)) {
-              if (!input.trySkipNullValue()) {
-                input.readRepeatedUInt32(hBCDGNCPNGB);
-                bitField0_ |= 0x00000002;
-              }
-            } else {
-              input.skipUnknownField();
-            }
-            break;
-          }
           case 1590552099:
           case -1788038295: {
             if (input.isAtField(FieldNames.searchResultList)) {
               if (!input.trySkipNullValue()) {
                 input.readRepeatedMessage(searchResultList);
-                bitField0_ |= 0x00000004;
+                bitField0_ |= 0x00000002;
               }
             } else {
               input.skipUnknownField();
@@ -487,8 +368,6 @@ public final class SearchPlayerScRspOuterClass {
      */
     static class FieldNames {
       static final FieldName retcode = FieldName.forField("retcode");
-
-      static final FieldName hBCDGNCPNGB = FieldName.forField("HBCDGNCPNGB");
 
       static final FieldName searchResultList = FieldName.forField("searchResultList", "search_result_list");
     }

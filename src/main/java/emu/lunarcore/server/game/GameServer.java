@@ -27,6 +27,7 @@ public class GameServer extends KcpServer {
     
     private final Int2ObjectMap<Player> players;
     private final Timer gameLoopTimer;
+    private long lastTickTime;
     
     // Managers
     @Getter private final GameServerPacketHandler packetHandler;
@@ -42,7 +43,7 @@ public class GameServer extends KcpServer {
         // Game Server base
         this.serverConfig = serverConfig;
         this.info = new RegionInfo(this);
-        this.address = new InetSocketAddress(serverConfig.bindAddress, serverConfig.getPort());
+        this.address = new InetSocketAddress(serverConfig.getBindAddress(), serverConfig.getBindPort());
         this.players = new Int2ObjectOpenHashMap<>();
 
         // Setup managers
@@ -56,6 +57,7 @@ public class GameServer extends KcpServer {
         this.shopService = new ShopService(this);
         
         // Game loop
+        this.lastTickTime = System.currentTimeMillis();
         this.gameLoopTimer = new Timer();
         this.gameLoopTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -164,19 +166,24 @@ public class GameServer extends KcpServer {
         this.info.setUp(true);
         this.info.save();
         LunarCore.getHttpServer().forceRegionListRefresh();
+        
+        // Force a system gc after everything is loaded and started
+        System.gc();
 
         // Done
         LunarCore.getLogger().info("Game Server started on " + address.getPort());
-
-        // Anti-seller
-        LunarCore.getLogger().warn("LUNARCORE IS A FREE SOFTWARE. IF YOU PAID FOR IT, YOU HAVE BEEN SCAMMED!");
+        LunarCore.getLogger().warn("LUNARCORE IS A FREE SOFTWARE. IF YOU PAID FOR IT, YOU HAVE BEEN SCAMMED!"); // DO NOT REMOVE. Anti-seller
     }
     
     private void onTick() {
+        long timestamp = System.currentTimeMillis();
+        long delta = timestamp - lastTickTime;
+        this.lastTickTime = timestamp;
+        
         synchronized (this.players) {
             for (Player player : this.players.values()) {
                 try {
-                    player.onTick();
+                    player.onTick(timestamp, delta);
                 } catch (Exception e) {
                     LunarCore.getLogger().error("[UID: " + player.getUid() + "] Player tick error: ", e);
                 }

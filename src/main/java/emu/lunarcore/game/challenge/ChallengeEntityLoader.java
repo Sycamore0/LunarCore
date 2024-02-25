@@ -1,17 +1,17 @@
 package emu.lunarcore.game.challenge;
 
+import emu.lunarcore.GameConstants;
 import emu.lunarcore.data.GameData;
 import emu.lunarcore.data.config.GroupInfo;
 import emu.lunarcore.data.config.MonsterInfo;
 import emu.lunarcore.data.config.NpcInfo;
-import emu.lunarcore.data.config.PropInfo;
+import emu.lunarcore.data.config.GroupInfo.GroupLoadSide;
 import emu.lunarcore.data.excel.NpcMonsterExcel;
 import emu.lunarcore.data.excel.ChallengeExcel.ChallengeMonsterInfo;
 import emu.lunarcore.game.scene.Scene;
 import emu.lunarcore.game.scene.SceneEntityLoader;
 import emu.lunarcore.game.scene.entity.EntityMonster;
 import emu.lunarcore.game.scene.entity.EntityNpc;
-import emu.lunarcore.game.scene.entity.EntityProp;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 
 public class ChallengeEntityLoader extends SceneEntityLoader {
@@ -24,6 +24,22 @@ public class ChallengeEntityLoader extends SceneEntityLoader {
         
         // Setup first stage
         scene.loadGroup(instance.getExcel().getMazeGroupID1());
+        
+        // Set leave entry
+        scene.setLeaveEntryId(instance.isStory() ? GameConstants.CHALLENGE_STORY_ENTRANCE : GameConstants.CHALLENGE_ENTRANCE);
+        
+        // Load all groups with props
+        for (var group : scene.getFloorInfo().getGroups().values()) {
+            // Skip non-server groups
+            if (group.getLoadSide() != GroupLoadSide.Server) {
+                continue;
+            }
+            
+            // Dont load the groups that have monsters in them
+            if (group.getPropList().size() > 0 && group.getMonsterList().size() == 0) {
+                scene.loadGroup(group);
+            }
+        }
     }
     
     @Override
@@ -53,14 +69,9 @@ public class ChallengeEntityLoader extends SceneEntityLoader {
         // Create monster from group monster info
         EntityMonster monster = new EntityMonster(scene, npcMonsterExcel, group, monsterInfo);
         monster.setEventId(challengeMonsterInfo.getEventId());
-        monster.setOverrideStageId(challengeMonsterInfo.getEventId());
+        monster.setCustomStageId(challengeMonsterInfo.getEventId());
         
         return monster;
-    }
-    
-    @Override
-    public EntityProp loadProp(Scene scene, GroupInfo group, PropInfo propInfo) {
-        return null;
     }
     
     @Override

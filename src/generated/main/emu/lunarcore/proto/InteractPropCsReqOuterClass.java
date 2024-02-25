@@ -19,9 +19,14 @@ public final class InteractPropCsReqOuterClass {
     private static final long serialVersionUID = 0L;
 
     /**
-     * <code>optional uint32 prop_entity_id = 13;</code>
+     * <code>optional uint32 prop_entity_id = 5;</code>
      */
     private int propEntityId;
+
+    /**
+     * <code>optional uint32 interact_id = 15;</code>
+     */
+    private int interactId;
 
     private InteractPropCsReq() {
     }
@@ -34,7 +39,7 @@ public final class InteractPropCsReqOuterClass {
     }
 
     /**
-     * <code>optional uint32 prop_entity_id = 13;</code>
+     * <code>optional uint32 prop_entity_id = 5;</code>
      * @return whether the propEntityId field is set
      */
     public boolean hasPropEntityId() {
@@ -42,7 +47,7 @@ public final class InteractPropCsReqOuterClass {
     }
 
     /**
-     * <code>optional uint32 prop_entity_id = 13;</code>
+     * <code>optional uint32 prop_entity_id = 5;</code>
      * @return this
      */
     public InteractPropCsReq clearPropEntityId() {
@@ -52,7 +57,7 @@ public final class InteractPropCsReqOuterClass {
     }
 
     /**
-     * <code>optional uint32 prop_entity_id = 13;</code>
+     * <code>optional uint32 prop_entity_id = 5;</code>
      * @return the propEntityId
      */
     public int getPropEntityId() {
@@ -60,7 +65,7 @@ public final class InteractPropCsReqOuterClass {
     }
 
     /**
-     * <code>optional uint32 prop_entity_id = 13;</code>
+     * <code>optional uint32 prop_entity_id = 5;</code>
      * @param value the propEntityId to set
      * @return this
      */
@@ -70,12 +75,50 @@ public final class InteractPropCsReqOuterClass {
       return this;
     }
 
+    /**
+     * <code>optional uint32 interact_id = 15;</code>
+     * @return whether the interactId field is set
+     */
+    public boolean hasInteractId() {
+      return (bitField0_ & 0x00000002) != 0;
+    }
+
+    /**
+     * <code>optional uint32 interact_id = 15;</code>
+     * @return this
+     */
+    public InteractPropCsReq clearInteractId() {
+      bitField0_ &= ~0x00000002;
+      interactId = 0;
+      return this;
+    }
+
+    /**
+     * <code>optional uint32 interact_id = 15;</code>
+     * @return the interactId
+     */
+    public int getInteractId() {
+      return interactId;
+    }
+
+    /**
+     * <code>optional uint32 interact_id = 15;</code>
+     * @param value the interactId to set
+     * @return this
+     */
+    public InteractPropCsReq setInteractId(final int value) {
+      bitField0_ |= 0x00000002;
+      interactId = value;
+      return this;
+    }
+
     @Override
     public InteractPropCsReq copyFrom(final InteractPropCsReq other) {
       cachedSize = other.cachedSize;
       if ((bitField0_ | other.bitField0_) != 0) {
         bitField0_ = other.bitField0_;
         propEntityId = other.propEntityId;
+        interactId = other.interactId;
       }
       return this;
     }
@@ -89,6 +132,9 @@ public final class InteractPropCsReqOuterClass {
       if (other.hasPropEntityId()) {
         setPropEntityId(other.propEntityId);
       }
+      if (other.hasInteractId()) {
+        setInteractId(other.interactId);
+      }
       return this;
     }
 
@@ -100,6 +146,7 @@ public final class InteractPropCsReqOuterClass {
       cachedSize = -1;
       bitField0_ = 0;
       propEntityId = 0;
+      interactId = 0;
       return this;
     }
 
@@ -123,14 +170,19 @@ public final class InteractPropCsReqOuterClass {
       }
       InteractPropCsReq other = (InteractPropCsReq) o;
       return bitField0_ == other.bitField0_
-        && (!hasPropEntityId() || propEntityId == other.propEntityId);
+        && (!hasPropEntityId() || propEntityId == other.propEntityId)
+        && (!hasInteractId() || interactId == other.interactId);
     }
 
     @Override
     public void writeTo(final ProtoSink output) throws IOException {
       if ((bitField0_ & 0x00000001) != 0) {
-        output.writeRawByte((byte) 104);
+        output.writeRawByte((byte) 40);
         output.writeUInt32NoTag(propEntityId);
+      }
+      if ((bitField0_ & 0x00000002) != 0) {
+        output.writeRawByte((byte) 120);
+        output.writeUInt32NoTag(interactId);
       }
     }
 
@@ -139,6 +191,9 @@ public final class InteractPropCsReqOuterClass {
       int size = 0;
       if ((bitField0_ & 0x00000001) != 0) {
         size += 1 + ProtoSink.computeUInt32SizeNoTag(propEntityId);
+      }
+      if ((bitField0_ & 0x00000002) != 0) {
+        size += 1 + ProtoSink.computeUInt32SizeNoTag(interactId);
       }
       return size;
     }
@@ -150,10 +205,19 @@ public final class InteractPropCsReqOuterClass {
       int tag = input.readTag();
       while (true) {
         switch (tag) {
-          case 104: {
+          case 40: {
             // propEntityId
             propEntityId = input.readUInt32();
             bitField0_ |= 0x00000001;
+            tag = input.readTag();
+            if (tag != 120) {
+              break;
+            }
+          }
+          case 120: {
+            // interactId
+            interactId = input.readUInt32();
+            bitField0_ |= 0x00000002;
             tag = input.readTag();
             if (tag != 0) {
               break;
@@ -179,6 +243,9 @@ public final class InteractPropCsReqOuterClass {
       if ((bitField0_ & 0x00000001) != 0) {
         output.writeUInt32(FieldNames.propEntityId, propEntityId);
       }
+      if ((bitField0_ & 0x00000002) != 0) {
+        output.writeUInt32(FieldNames.interactId, interactId);
+      }
       output.endObject();
     }
 
@@ -195,6 +262,18 @@ public final class InteractPropCsReqOuterClass {
               if (!input.trySkipNullValue()) {
                 propEntityId = input.readUInt32();
                 bitField0_ |= 0x00000001;
+              }
+            } else {
+              input.skipUnknownField();
+            }
+            break;
+          }
+          case -1603081743:
+          case 1844094916: {
+            if (input.isAtField(FieldNames.interactId)) {
+              if (!input.trySkipNullValue()) {
+                interactId = input.readUInt32();
+                bitField0_ |= 0x00000002;
               }
             } else {
               input.skipUnknownField();
@@ -255,6 +334,8 @@ public final class InteractPropCsReqOuterClass {
      */
     static class FieldNames {
       static final FieldName propEntityId = FieldName.forField("propEntityId", "prop_entity_id");
+
+      static final FieldName interactId = FieldName.forField("interactId", "interact_id");
     }
   }
 }

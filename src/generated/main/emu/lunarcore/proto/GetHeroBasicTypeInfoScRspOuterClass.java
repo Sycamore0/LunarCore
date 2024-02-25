@@ -20,22 +20,22 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
     private static final long serialVersionUID = 0L;
 
     /**
-     * <code>optional uint32 retcode = 12;</code>
+     * <code>optional uint32 retcode = 11;</code>
      */
     private int retcode;
 
     /**
-     * <code>optional .Gender gender = 5;</code>
+     * <code>optional .Gender gender = 1;</code>
      */
     private int gender;
 
     /**
-     * <code>optional .HeroBasicType cur_basic_type = 11;</code>
+     * <code>optional .HeroBasicType cur_basic_type = 7;</code>
      */
     private int curBasicType;
 
     /**
-     * <code>repeated .HeroBasicTypeInfo basic_type_info_list = 6;</code>
+     * <code>repeated .HeroBasicTypeInfo basic_type_info_list = 2;</code>
      */
     private final RepeatedMessage<HeroBasicTypeInfoOuterClass.HeroBasicTypeInfo> basicTypeInfoList = RepeatedMessage.newEmptyInstance(HeroBasicTypeInfoOuterClass.HeroBasicTypeInfo.getFactory());
 
@@ -50,7 +50,7 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 retcode = 12;</code>
+     * <code>optional uint32 retcode = 11;</code>
      * @return whether the retcode field is set
      */
     public boolean hasRetcode() {
@@ -58,7 +58,7 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 retcode = 12;</code>
+     * <code>optional uint32 retcode = 11;</code>
      * @return this
      */
     public GetHeroBasicTypeInfoScRsp clearRetcode() {
@@ -68,7 +68,7 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 retcode = 12;</code>
+     * <code>optional uint32 retcode = 11;</code>
      * @return the retcode
      */
     public int getRetcode() {
@@ -76,7 +76,7 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
     }
 
     /**
-     * <code>optional uint32 retcode = 12;</code>
+     * <code>optional uint32 retcode = 11;</code>
      * @param value the retcode to set
      * @return this
      */
@@ -87,7 +87,7 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
     }
 
     /**
-     * <code>optional .Gender gender = 5;</code>
+     * <code>optional .Gender gender = 1;</code>
      * @return whether the gender field is set
      */
     public boolean hasGender() {
@@ -95,7 +95,7 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
     }
 
     /**
-     * <code>optional .Gender gender = 5;</code>
+     * <code>optional .Gender gender = 1;</code>
      * @return this
      */
     public GetHeroBasicTypeInfoScRsp clearGender() {
@@ -105,7 +105,7 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
     }
 
     /**
-     * <code>optional .Gender gender = 5;</code>
+     * <code>optional .Gender gender = 1;</code>
      * @return the gender
      */
     public GenderOuterClass.Gender getGender() {
@@ -138,7 +138,7 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
     }
 
     /**
-     * <code>optional .Gender gender = 5;</code>
+     * <code>optional .Gender gender = 1;</code>
      * @param value the gender to set
      * @return this
      */
@@ -149,7 +149,7 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
     }
 
     /**
-     * <code>optional .HeroBasicType cur_basic_type = 11;</code>
+     * <code>optional .HeroBasicType cur_basic_type = 7;</code>
      * @return whether the curBasicType field is set
      */
     public boolean hasCurBasicType() {
@@ -157,7 +157,7 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
     }
 
     /**
-     * <code>optional .HeroBasicType cur_basic_type = 11;</code>
+     * <code>optional .HeroBasicType cur_basic_type = 7;</code>
      * @return this
      */
     public GetHeroBasicTypeInfoScRsp clearCurBasicType() {
@@ -167,7 +167,7 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
     }
 
     /**
-     * <code>optional .HeroBasicType cur_basic_type = 11;</code>
+     * <code>optional .HeroBasicType cur_basic_type = 7;</code>
      * @return the curBasicType
      */
     public HeroBasicTypeOuterClass.HeroBasicType getCurBasicType() {
@@ -200,7 +200,7 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
     }
 
     /**
-     * <code>optional .HeroBasicType cur_basic_type = 11;</code>
+     * <code>optional .HeroBasicType cur_basic_type = 7;</code>
      * @param value the curBasicType to set
      * @return this
      */
@@ -212,7 +212,7 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
     }
 
     /**
-     * <code>repeated .HeroBasicTypeInfo basic_type_info_list = 6;</code>
+     * <code>repeated .HeroBasicTypeInfo basic_type_info_list = 2;</code>
      * @return whether the basicTypeInfoList field is set
      */
     public boolean hasBasicTypeInfoList() {
@@ -220,7 +220,7 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
     }
 
     /**
-     * <code>repeated .HeroBasicTypeInfo basic_type_info_list = 6;</code>
+     * <code>repeated .HeroBasicTypeInfo basic_type_info_list = 2;</code>
      * @return this
      */
     public GetHeroBasicTypeInfoScRsp clearBasicTypeInfoList() {
@@ -230,7 +230,7 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
     }
 
     /**
-     * <code>repeated .HeroBasicTypeInfo basic_type_info_list = 6;</code>
+     * <code>repeated .HeroBasicTypeInfo basic_type_info_list = 2;</code>
      *
      * This method returns the internal storage object without modifying any has state.
      * The returned object should not be modified and be treated as read-only.
@@ -244,7 +244,7 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
     }
 
     /**
-     * <code>repeated .HeroBasicTypeInfo basic_type_info_list = 6;</code>
+     * <code>repeated .HeroBasicTypeInfo basic_type_info_list = 2;</code>
      *
      * This method returns the internal storage object and sets the corresponding
      * has state. The returned object will become part of this message and its
@@ -259,7 +259,7 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
     }
 
     /**
-     * <code>repeated .HeroBasicTypeInfo basic_type_info_list = 6;</code>
+     * <code>repeated .HeroBasicTypeInfo basic_type_info_list = 2;</code>
      * @param value the basicTypeInfoList to add
      * @return this
      */
@@ -271,7 +271,7 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
     }
 
     /**
-     * <code>repeated .HeroBasicTypeInfo basic_type_info_list = 6;</code>
+     * <code>repeated .HeroBasicTypeInfo basic_type_info_list = 2;</code>
      * @param values the basicTypeInfoList to add
      * @return this
      */
@@ -360,20 +360,20 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
     @Override
     public void writeTo(final ProtoSink output) throws IOException {
       if ((bitField0_ & 0x00000001) != 0) {
-        output.writeRawByte((byte) 96);
+        output.writeRawByte((byte) 88);
         output.writeUInt32NoTag(retcode);
       }
       if ((bitField0_ & 0x00000002) != 0) {
-        output.writeRawByte((byte) 40);
+        output.writeRawByte((byte) 8);
         output.writeEnumNoTag(gender);
       }
       if ((bitField0_ & 0x00000004) != 0) {
-        output.writeRawByte((byte) 88);
+        output.writeRawByte((byte) 56);
         output.writeEnumNoTag(curBasicType);
       }
       if ((bitField0_ & 0x00000008) != 0) {
         for (int i = 0; i < basicTypeInfoList.length(); i++) {
-          output.writeRawByte((byte) 50);
+          output.writeRawByte((byte) 18);
           output.writeMessageNoTag(basicTypeInfoList.get(i));
         }
       }
@@ -404,16 +404,16 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
       int tag = input.readTag();
       while (true) {
         switch (tag) {
-          case 96: {
+          case 88: {
             // retcode
             retcode = input.readUInt32();
             bitField0_ |= 0x00000001;
             tag = input.readTag();
-            if (tag != 40) {
+            if (tag != 8) {
               break;
             }
           }
-          case 40: {
+          case 8: {
             // gender
             final int value = input.readInt32();
             if (GenderOuterClass.Gender.forNumber(value) != null) {
@@ -421,11 +421,11 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
               bitField0_ |= 0x00000002;
             }
             tag = input.readTag();
-            if (tag != 88) {
+            if (tag != 56) {
               break;
             }
           }
-          case 88: {
+          case 56: {
             // curBasicType
             final int value = input.readInt32();
             if (HeroBasicTypeOuterClass.HeroBasicType.forNumber(value) != null) {
@@ -433,11 +433,11 @@ public final class GetHeroBasicTypeInfoScRspOuterClass {
               bitField0_ |= 0x00000004;
             }
             tag = input.readTag();
-            if (tag != 50) {
+            if (tag != 18) {
               break;
             }
           }
-          case 50: {
+          case 18: {
             // basicTypeInfoList
             tag = input.readRepeatedMessage(basicTypeInfoList, tag);
             bitField0_ |= 0x00000008;

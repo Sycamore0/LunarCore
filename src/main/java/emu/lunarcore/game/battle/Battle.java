@@ -3,21 +3,26 @@ package emu.lunarcore.game.battle;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Consumer;
 
+import emu.lunarcore.GameConstants;
 import emu.lunarcore.data.GameData;
-import emu.lunarcore.data.excel.MazeBuffExcel;
 import emu.lunarcore.data.excel.StageExcel;
 import emu.lunarcore.game.avatar.GameAvatar;
-import emu.lunarcore.game.enums.StageType;
 import emu.lunarcore.game.inventory.GameItem;
 import emu.lunarcore.game.player.Player;
 import emu.lunarcore.game.player.lineup.PlayerLineup;
 import emu.lunarcore.game.scene.entity.EntityMonster;
-import emu.lunarcore.proto.ClientTurnSnapshotOuterClass.ClientTurnSnapshot;
+import emu.lunarcore.proto.BattleEndStatusOuterClass.BattleEndStatus;
+import emu.lunarcore.proto.BattleEventBattleInfoOuterClass.BattleEventBattleInfo;
+import emu.lunarcore.proto.BattleStatisticsOuterClass.BattleStatistics;
+import emu.lunarcore.proto.BattleTargetListOuterClass.BattleTargetList;
+import emu.lunarcore.proto.BattleTargetOuterClass.BattleTarget;
 import emu.lunarcore.proto.SceneBattleInfoOuterClass.SceneBattleInfo;
-import emu.lunarcore.proto.SceneMonsterOuterClass.SceneMonster;
-import emu.lunarcore.proto.SceneMonsterWaveOuterClass.SceneMonsterWave;
+import emu.lunarcore.proto.SceneBattleInfoOuterClass.SceneBattleInfo.BattleTargetInfoEntry;
 import emu.lunarcore.util.Utils;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import lombok.Getter;
@@ -30,15 +35,26 @@ public class Battle {
     private final PlayerLineup lineup;
     private final List<EntityMonster> npcMonsters;
     private final List<MazeBuff> buffs;
-    private final List<StageExcel> stages;
+    private final List<BattleMonsterWave> waves;
     private final List<GameItem> drops;
     private final long timestamp;
     
-    private IntList turnSnapshotList; // TODO maybe turn it into a map?
+    private StageExcel stage; // Main battle stage
+    private IntList battleEvents; // TODO maybe turn it into a map?
+    private Int2ObjectMap<BattleTargetList> battleTargets; // TODO use custom battle target object as value type in case we need to save battles to the db
     
+    // Internal battle data
+    @Setter private BattleEndStatus result;
     @Setter private int staminaCost;
-    @Setter private int levelOverride;
     @Setter private int roundsLimit;
+    
+    // Used for calculating cocoon/farm element drops
+    @Setter private int mappingInfoId;
+    @Setter private int worldLevel;
+    @Setter private int cocoonWave;
+    
+    // OnFinish Callback
+    @Setter private Consumer<BattleStatistics> onFinish;
     
     private Battle(Player player, PlayerLineup lineup) {
         this.id = player.getNextBattleId();
@@ -46,73 +62,128 @@ public class Battle {
         this.lineup = lineup;
         this.npcMonsters = new ArrayList<>();
         this.buffs = new ArrayList<>();
-        this.stages = new ArrayList<>();
+        this.waves = new ArrayList<>();
         this.drops = new ArrayList<>();
         this.timestamp = System.currentTimeMillis();
     }
     
     public Battle(Player player, PlayerLineup lineup, StageExcel stage) {
+        this(player, lineup, stage, true);
+    }
+    
+    public Battle(Player player, PlayerLineup lineup, StageExcel stage, boolean loadStage) {
         this(player, lineup);
-        this.stages.add(stage);
+        this.stage = stage;
+        
+        if (loadStage) {
+            this.loadStage(stage); 
+        }
     }
     
-    public Battle(Player player, PlayerLineup lineup, Collection<StageExcel> stages) {
+    public Battle(Player player, PlayerLineup lineup, List<StageExcel> stages) {
         this(player, lineup);
-        this.stages.addAll(stages);
-    }
-    
-    public IntList getTurnSnapshotList() {
-        if (this.turnSnapshotList == null) {
-            this.turnSnapshotList = new IntArrayList();
-        }
-        return this.turnSnapshotList;
-    }
-    
-    public StageType getStageType() {
-        StageExcel stage = this.getFirstStage();
-        if (stage != null) {
-            return stage.getStageType();
-        }
-        return StageType.Unknown;
-    }
-
-    public StageExcel getFirstStage() {
-        if (this.getStages().size() > 0) {
-            return this.getStages().get(0);
-        } else {
-            return null;
-        }
-    }
-    
-    public int getStageId() {
-        if (this.getStages().size() > 0) {
-            return this.getStages().get(0).getId();
-        } else {
-            return 0;
-        }
-    }
-    
-    public int getMonsterWaveCount() {
-        int count = 0;
+        this.stage = stages.get(0);
         
         for (StageExcel stage : stages) {
-            count += stage.getMonsterWaves().size();
+            this.loadStage(stage);
         }
+    }
+    
+    public Battle(Player player, PlayerLineup lineup, Collection<EntityMonster> npcMonsters) {
+        this(player, lineup);
         
-        return count;
+        // Parse npc monster
+        for (EntityMonster npcMonster : npcMonsters) {
+            // Add monster
+            this.npcMonsters.add(npcMonster);
+
+            // Check farm element
+            if (npcMonster.getFarmElementId() != 0) {
+                this.setMappingInfoId(npcMonster.getFarmElementId());
+                this.setWorldLevel(npcMonster.getWorldLevel());
+                this.setStaminaCost(GameConstants.FARM_ELEMENT_STAMINA_COST);
+            }
+            
+            // Get stage
+            StageExcel stage = GameData.getStageExcelMap().get(npcMonster.getStageId());
+            if (stage == null) continue;
+            
+            // Set main battle stage if we havent already
+            if (this.stage == null) {
+                this.stage = stage;
+            }
+            
+            // Create monster waves from stage
+            this.loadStage(stage, npcMonster);
+        }
+    }
+    
+    private void loadStage(StageExcel stage) {
+        this.loadStage(stage, null);
+    }
+    
+    private void loadStage(StageExcel stage, EntityMonster npcMonster) {
+        // Build monster waves
+        for (IntList stageMonsterWave : stage.getMonsterWaves()) {
+            // Create battle wave
+            var wave = new BattleMonsterWave(stage);
+            wave.getMonsters().addAll(stageMonsterWave);
+            
+            // Handle npc monster
+            if (npcMonster != null) {
+                // Set wave custom level
+                wave.setCustomLevel(npcMonster.getCustomLevel());
+                
+                // Handle monster buffs
+                npcMonster.applyBuffs(this, this.getWaves().size());
+            }
+            
+            // Finally add wave to battle
+            this.getWaves().add(wave);
+        }
+    }
+    
+    public IntList getBattleEvents() {
+        if (this.battleEvents == null) {
+            this.battleEvents = new IntArrayList();
+        }
+        return this.battleEvents;
+    }
+    
+    public Int2ObjectMap<BattleTargetList> getBattleTargets() {
+        if (this.battleTargets == null) {
+            this.battleTargets = new Int2ObjectOpenHashMap<>();
+        }
+        return this.battleTargets;
+    }
+    
+    public void addBattleTarget(int key, int targetId, int progress) {
+        var list = getBattleTargets().computeIfAbsent(key, i -> BattleTargetList.newInstance());
+        var battleTarget = BattleTarget.newInstance()
+                .setId(targetId)
+                .setProgress(progress);
+        
+        list.addBattleTargetList(battleTarget);
+    }
+    
+    public void setCustomLevel(int level) {
+        for (var wave : this.getWaves()) {
+            wave.setCustomLevel(level);
+        }
     }
     
     // Battle buffs
+    
+    public MazeBuff addBuff(int buffId) {
+        return addBuff(buffId, -1, 0xffffffff);
+    }
     
     public MazeBuff addBuff(int buffId, int ownerIndex) {
         return addBuff(buffId, ownerIndex, 0xffffffff);
     }
     
     public MazeBuff addBuff(int buffId, int ownerIndex, int waveFlag) {
-        MazeBuffExcel excel = GameData.getMazeBuffExcel(buffId, 1);
-        if (excel == null) return null;
-        
-        MazeBuff buff = new MazeBuff(excel, ownerIndex, waveFlag);
+        MazeBuff buff = new MazeBuff(buffId, 1, ownerIndex, waveFlag);
         return addBuff(buff);
     }
     
@@ -135,34 +206,14 @@ public class Battle {
         // Build battle info
         var proto = SceneBattleInfo.newInstance()
                 .setBattleId(this.getId())
+                .setStageId(this.getStage().getId())
                 .setRoundsLimit(this.getRoundsLimit())
                 .setLogicRandomSeed(Utils.randomRange(1, Short.MAX_VALUE))
                 .setWorldLevel(player.getWorldLevel());
 
-        // Add monster waves from stages
-        for (StageExcel stage : stages) {
-            // Build monster waves
-            for (IntList sceneMonsterWave : stage.getMonsterWaves()) {
-                var wave = SceneMonsterWave.newInstance()
-                        .setWaveId(1) // Probably not named correctly
-                        .setStageId(stage.getId());
-                
-                if (this.levelOverride > 0) {
-                    wave.getMutableWaveParam().setLevel(this.levelOverride);
-                }
-                
-                for (int monsterId : sceneMonsterWave) {
-                    var monster = SceneMonster.newInstance().setMonsterId(monsterId);
-                    wave.addMonsterList(monster);
-                }
-                
-                proto.addMonsterWaveList(wave);
-            }
-            
-            // Set stage for the battle
-            if (proto.getStageId() == 0) {
-                proto.setStageId(stage.getId());
-            }
+        // Add monster waves
+        for (var wave : this.getWaves()) {
+            proto.addMonsterWaveList(wave.toProto());
         }
         
         // Avatars
@@ -191,8 +242,8 @@ public class Battle {
         
         // Apply food buffs to battle
         if (player.getFoodBuffs().size() > 0) {
-            for (int buffId : player.getFoodBuffs().values()) {
-                this.addBuff(buffId, -1);
+            for (var buff : player.getFoodBuffs().values()) {
+                this.addBuff(buff.getBuffId(), -1);
             }
         }
         
@@ -202,17 +253,34 @@ public class Battle {
         }
         
         // Client turn snapshots
-        if (this.turnSnapshotList != null) {
-            for (int id : this.turnSnapshotList) {
-                var snapshot = ClientTurnSnapshot.newInstance()
+        if (this.battleEvents != null) {
+            for (int id : this.battleEvents) {
+                var event = BattleEventBattleInfo.newInstance()
                         .setBattleEventId(id);
                 
                 // Temp solution
-                snapshot.getMutableStatus().getMutableSpBar()
+                event.getMutableStatus().getMutableSpBar()
                         .setCurSp(10000)
                         .setMaxSp(10000);
                 
-                proto.addTurnSnapshotList(snapshot);
+                proto.addEventBattleInfoList(event);
+            }
+        }
+        
+        // Battle target map
+        if (this.battleTargets != null) {
+            // Build battle target map
+            for (int i = 1; i <= 5; i++) {
+                var battleTargetList = this.battleTargets.get(i);
+                var battleTargetEntry = BattleTargetInfoEntry.newInstance().setKey(i);
+                
+                if (battleTargetList == null) {
+                    battleTargetEntry.getMutableValue();
+                } else {
+                    battleTargetEntry.setValue(battleTargetList);
+                }
+                
+                proto.addBattleTargetInfo(battleTargetEntry);
             }
         }
         

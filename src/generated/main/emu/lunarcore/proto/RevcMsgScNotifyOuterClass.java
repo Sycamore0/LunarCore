@@ -20,32 +20,32 @@ public final class RevcMsgScNotifyOuterClass {
     private static final long serialVersionUID = 0L;
 
     /**
-     * <code>optional uint32 fromUid = 6;</code>
+     * <code>optional uint32 from_uid = 4;</code>
      */
     private int fromUid;
 
     /**
-     * <code>optional uint32 toUid = 8;</code>
+     * <code>optional uint32 to_uid = 11;</code>
      */
     private int toUid;
 
     /**
-     * <code>optional uint32 emote = 12;</code>
+     * <code>optional uint32 emote = 14;</code>
      */
     private int emote;
 
     /**
-     * <code>optional .ChatType chat_type = 3;</code>
+     * <code>optional .ChatType chat_type = 13;</code>
      */
     private int chatType;
 
     /**
-     * <code>optional .MsgType msg_type = 10;</code>
+     * <code>optional .MsgType msg_type = 15;</code>
      */
     private int msgType;
 
     /**
-     * <code>optional string text = 13;</code>
+     * <code>optional string text = 8;</code>
      */
     private final Utf8String text = Utf8String.newEmptyInstance();
 
@@ -60,7 +60,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional uint32 fromUid = 6;</code>
+     * <code>optional uint32 from_uid = 4;</code>
      * @return whether the fromUid field is set
      */
     public boolean hasFromUid() {
@@ -68,7 +68,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional uint32 fromUid = 6;</code>
+     * <code>optional uint32 from_uid = 4;</code>
      * @return this
      */
     public RevcMsgScNotify clearFromUid() {
@@ -78,7 +78,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional uint32 fromUid = 6;</code>
+     * <code>optional uint32 from_uid = 4;</code>
      * @return the fromUid
      */
     public int getFromUid() {
@@ -86,7 +86,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional uint32 fromUid = 6;</code>
+     * <code>optional uint32 from_uid = 4;</code>
      * @param value the fromUid to set
      * @return this
      */
@@ -97,7 +97,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional uint32 toUid = 8;</code>
+     * <code>optional uint32 to_uid = 11;</code>
      * @return whether the toUid field is set
      */
     public boolean hasToUid() {
@@ -105,7 +105,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional uint32 toUid = 8;</code>
+     * <code>optional uint32 to_uid = 11;</code>
      * @return this
      */
     public RevcMsgScNotify clearToUid() {
@@ -115,7 +115,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional uint32 toUid = 8;</code>
+     * <code>optional uint32 to_uid = 11;</code>
      * @return the toUid
      */
     public int getToUid() {
@@ -123,7 +123,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional uint32 toUid = 8;</code>
+     * <code>optional uint32 to_uid = 11;</code>
      * @param value the toUid to set
      * @return this
      */
@@ -134,7 +134,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional uint32 emote = 12;</code>
+     * <code>optional uint32 emote = 14;</code>
      * @return whether the emote field is set
      */
     public boolean hasEmote() {
@@ -142,7 +142,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional uint32 emote = 12;</code>
+     * <code>optional uint32 emote = 14;</code>
      * @return this
      */
     public RevcMsgScNotify clearEmote() {
@@ -152,7 +152,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional uint32 emote = 12;</code>
+     * <code>optional uint32 emote = 14;</code>
      * @return the emote
      */
     public int getEmote() {
@@ -160,7 +160,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional uint32 emote = 12;</code>
+     * <code>optional uint32 emote = 14;</code>
      * @param value the emote to set
      * @return this
      */
@@ -171,7 +171,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional .ChatType chat_type = 3;</code>
+     * <code>optional .ChatType chat_type = 13;</code>
      * @return whether the chatType field is set
      */
     public boolean hasChatType() {
@@ -179,7 +179,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional .ChatType chat_type = 3;</code>
+     * <code>optional .ChatType chat_type = 13;</code>
      * @return this
      */
     public RevcMsgScNotify clearChatType() {
@@ -189,7 +189,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional .ChatType chat_type = 3;</code>
+     * <code>optional .ChatType chat_type = 13;</code>
      * @return the chatType
      */
     public ChatTypeOuterClass.ChatType getChatType() {
@@ -222,7 +222,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional .ChatType chat_type = 3;</code>
+     * <code>optional .ChatType chat_type = 13;</code>
      * @param value the chatType to set
      * @return this
      */
@@ -233,7 +233,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional .MsgType msg_type = 10;</code>
+     * <code>optional .MsgType msg_type = 15;</code>
      * @return whether the msgType field is set
      */
     public boolean hasMsgType() {
@@ -241,7 +241,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional .MsgType msg_type = 10;</code>
+     * <code>optional .MsgType msg_type = 15;</code>
      * @return this
      */
     public RevcMsgScNotify clearMsgType() {
@@ -251,7 +251,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional .MsgType msg_type = 10;</code>
+     * <code>optional .MsgType msg_type = 15;</code>
      * @return the msgType
      */
     public MsgTypeOuterClass.MsgType getMsgType() {
@@ -284,7 +284,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional .MsgType msg_type = 10;</code>
+     * <code>optional .MsgType msg_type = 15;</code>
      * @param value the msgType to set
      * @return this
      */
@@ -295,7 +295,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional string text = 13;</code>
+     * <code>optional string text = 8;</code>
      * @return whether the text field is set
      */
     public boolean hasText() {
@@ -303,7 +303,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional string text = 13;</code>
+     * <code>optional string text = 8;</code>
      * @return this
      */
     public RevcMsgScNotify clearText() {
@@ -313,7 +313,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional string text = 13;</code>
+     * <code>optional string text = 8;</code>
      * @return the text
      */
     public String getText() {
@@ -321,7 +321,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional string text = 13;</code>
+     * <code>optional string text = 8;</code>
      * @return internal {@code Utf8String} representation of text for reading
      */
     public Utf8String getTextBytes() {
@@ -329,7 +329,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional string text = 13;</code>
+     * <code>optional string text = 8;</code>
      * @return internal {@code Utf8String} representation of text for modifications
      */
     public Utf8String getMutableTextBytes() {
@@ -338,7 +338,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional string text = 13;</code>
+     * <code>optional string text = 8;</code>
      * @param value the text to set
      * @return this
      */
@@ -349,7 +349,7 @@ public final class RevcMsgScNotifyOuterClass {
     }
 
     /**
-     * <code>optional string text = 13;</code>
+     * <code>optional string text = 8;</code>
      * @param value the text to set
      * @return this
      */
@@ -449,27 +449,27 @@ public final class RevcMsgScNotifyOuterClass {
     @Override
     public void writeTo(final ProtoSink output) throws IOException {
       if ((bitField0_ & 0x00000001) != 0) {
-        output.writeRawByte((byte) 48);
+        output.writeRawByte((byte) 32);
         output.writeUInt32NoTag(fromUid);
       }
       if ((bitField0_ & 0x00000002) != 0) {
-        output.writeRawByte((byte) 64);
+        output.writeRawByte((byte) 88);
         output.writeUInt32NoTag(toUid);
       }
       if ((bitField0_ & 0x00000004) != 0) {
-        output.writeRawByte((byte) 96);
+        output.writeRawByte((byte) 112);
         output.writeUInt32NoTag(emote);
       }
       if ((bitField0_ & 0x00000008) != 0) {
-        output.writeRawByte((byte) 24);
+        output.writeRawByte((byte) 104);
         output.writeEnumNoTag(chatType);
       }
       if ((bitField0_ & 0x00000010) != 0) {
-        output.writeRawByte((byte) 80);
+        output.writeRawByte((byte) 120);
         output.writeEnumNoTag(msgType);
       }
       if ((bitField0_ & 0x00000020) != 0) {
-        output.writeRawByte((byte) 106);
+        output.writeRawByte((byte) 66);
         output.writeStringNoTag(text);
       }
     }
@@ -505,34 +505,34 @@ public final class RevcMsgScNotifyOuterClass {
       int tag = input.readTag();
       while (true) {
         switch (tag) {
-          case 48: {
+          case 32: {
             // fromUid
             fromUid = input.readUInt32();
             bitField0_ |= 0x00000001;
             tag = input.readTag();
-            if (tag != 64) {
+            if (tag != 88) {
               break;
             }
           }
-          case 64: {
+          case 88: {
             // toUid
             toUid = input.readUInt32();
             bitField0_ |= 0x00000002;
             tag = input.readTag();
-            if (tag != 96) {
+            if (tag != 112) {
               break;
             }
           }
-          case 96: {
+          case 112: {
             // emote
             emote = input.readUInt32();
             bitField0_ |= 0x00000004;
             tag = input.readTag();
-            if (tag != 24) {
+            if (tag != 104) {
               break;
             }
           }
-          case 24: {
+          case 104: {
             // chatType
             final int value = input.readInt32();
             if (ChatTypeOuterClass.ChatType.forNumber(value) != null) {
@@ -540,11 +540,11 @@ public final class RevcMsgScNotifyOuterClass {
               bitField0_ |= 0x00000008;
             }
             tag = input.readTag();
-            if (tag != 80) {
+            if (tag != 120) {
               break;
             }
           }
-          case 80: {
+          case 120: {
             // msgType
             final int value = input.readInt32();
             if (MsgTypeOuterClass.MsgType.forNumber(value) != null) {
@@ -552,11 +552,11 @@ public final class RevcMsgScNotifyOuterClass {
               bitField0_ |= 0x00000010;
             }
             tag = input.readTag();
-            if (tag != 106) {
+            if (tag != 66) {
               break;
             }
           }
-          case 106: {
+          case 66: {
             // text
             input.readString(text);
             bitField0_ |= 0x00000020;
@@ -610,7 +610,8 @@ public final class RevcMsgScNotifyOuterClass {
       }
       while (!input.isAtEnd()) {
         switch (input.readFieldHash()) {
-          case -594338746: {
+          case -594338746:
+          case -1244322245: {
             if (input.isAtField(FieldNames.fromUid)) {
               if (!input.trySkipNullValue()) {
                 fromUid = input.readUInt32();
@@ -621,7 +622,8 @@ public final class RevcMsgScNotifyOuterClass {
             }
             break;
           }
-          case 110520277: {
+          case 110520277:
+          case -868529012: {
             if (input.isAtField(FieldNames.toUid)) {
               if (!input.trySkipNullValue()) {
                 toUid = input.readUInt32();
@@ -741,9 +743,9 @@ public final class RevcMsgScNotifyOuterClass {
      * Contains name constants used for serializing JSON
      */
     static class FieldNames {
-      static final FieldName fromUid = FieldName.forField("fromUid");
+      static final FieldName fromUid = FieldName.forField("fromUid", "from_uid");
 
-      static final FieldName toUid = FieldName.forField("toUid");
+      static final FieldName toUid = FieldName.forField("toUid", "to_uid");
 
       static final FieldName emote = FieldName.forField("emote");
 
